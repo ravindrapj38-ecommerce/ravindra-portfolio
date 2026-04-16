@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ravindra Patel — Project Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f4f0;
+    --bg-info: #e6f1fb;
+    --bg-success: #eaf3de;
+    --bg-warning: #faeeda;
+    --text-primary: #1a1a18;
+    --text-secondary: #5f5e5a;
+    --text-tertiary: #888780;
+    --text-info: #185fa5;
+    --text-success: #3b6d11;
+    --text-warning: #854f0b;
+    --text-danger: #a32d2d;
+    --border-t: rgba(0,0,0,0.1);
+    --border-s: rgba(0,0,0,0.18);
+    --border-info: #b5d4f4;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-primary: #1e1e1c;
+      --bg-secondary: #2a2a27;
+      --bg-info: #0c447c;
+      --bg-success: #27500a;
+      --bg-warning: #633806;
+      --text-primary: #e8e6de;
+      --text-secondary: #b4b2a9;
+      --text-tertiary: #888780;
+      --text-info: #85b7eb;
+      --text-success: #97c459;
+      --text-warning: #ef9f27;
+      --text-danger: #f09595;
+      --border-t: rgba(255,255,255,0.1);
+      --border-s: rgba(255,255,255,0.18);
+      --border-info: #185fa5;
+    }
+  }
+
+  body {
+    background: var(--bg-secondary);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-primary);
+    padding: 2rem 1rem;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    background: var(--bg-primary);
+    border-radius: 16px;
+    border: 0.5px solid var(--border-t);
+    padding: 2rem 2.5rem;
+  }
+
+  .pf-hero {
+    border-bottom: 0.5px solid var(--border-t);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .pf-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 6px;
+  }
+
+  .pf-name {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .pf-role {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+  }
+
+  .pf-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .pf-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 0.5px solid var(--border-s);
+    color: var(--text-secondary);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .pf-section-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 1rem;
+  }
+
+  .pf-card {
+    background: var(--bg-primary);
+    border: 0.5px solid var(--border-t);
+    border-radius: var(--radius-lg);
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .pf-card:hover { border-color: var(--border-s); }
+
+  .pf-card-header {
+    padding: 1rem 1.25rem 0.75rem;
+    border-bottom: 0.5px solid var(--border-t);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .pf-card-title-group { flex: 1; }
+
+  .pf-card-num {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-tertiary);
+    margin-bottom: 3px;
+  }
+
+  .pf-card-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+
+  .pf-card-subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 3px;
+  }
+
+  .pf-badge {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .badge-ml { background: var(--bg-info); color: var(--text-info); }
+  .badge-search { background: var(--bg-success); color: var(--text-success); }
+  .badge-data { background: var(--bg-warning); color: var(--text-warning); }
+  .badge-audit { background: var(--bg-secondary); color: var(--text-secondary); }
+
+  .pf-card-body {
+    padding: 1rem 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .pf-card-body.single { grid-template-columns: 1fr; }
+
+  @media (max-width: 600px) {
+    .pf-card-body { grid-template-columns: 1fr; }
+    .page { padding: 1.25rem 1rem; }
+  }
+
+  .pf-section-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 6px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .pf-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .pf-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    padding: 0.75rem 1.25rem 1rem;
+    border-top: 0.5px solid var(--border-t);
+    background: var(--bg-secondary);
+  }
+
+  .pf-metric { display: flex; flex-direction: column; gap: 2px; }
+
+  .pf-metric-val {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary);
+    font-family: 'DM Mono', monospace;
+    line-height: 1.2;
+  }
+
+  .pf-metric-label { font-size: 11px; color: var(--text-tertiary); }
+
+  .pf-steps { display: flex; flex-direction: column; gap: 6px; }
+
+  .pf-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .pf-step-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--border-s);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  .pf-tools { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+
+  .pf-tool {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 8px;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border-t);
+    border-radius: 4px;
+    color: var(--text-secondary);
+  }
+
+  .pf-divider {
+    height: 0.5px;
+    background: var(--border-t);
+    margin: 1.5rem 0 1.25rem;
+  }
+
+  .pf-outcome-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+
+  .pf-outcome-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+
+  .pf-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+
+  .pf-table th {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: 5px 8px;
+    border-bottom: 0.5px solid var(--border-t);
+    background: var(--bg-secondary);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+
+  .pf-table td {
+    padding: 5px 8px;
+    color: var(--text-secondary);
+    border-bottom: 0.5px solid var(--border-t);
+    vertical-align: top;
+  }
+
+  .pf-table tr:last-child td { border-bottom: none; }
+
+  .tag-wrong { color: var(--text-danger); font-family: 'DM Mono', monospace; }
+  .tag-right { color: var(--text-success); font-family: 'DM Mono', monospace; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+
+  .skill-block {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+  }
+
+  .note-box {
+    margin-top: 8px;
+    padding: 8px 10px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    color: var(--text-secondary);
+    border-left: 2px solid var(--border-info);
+    line-height: 1.5;
+  }
+
+  .card-footer {
+    padding: 0.75rem 1.25rem;
+    border-top: 0.5px solid var(--border-t);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="pf-hero">
+    <div class="pf-eyebrow">Project Portfolio</div>
+    <div class="pf-name">Ravindra Patel</div>
+    <div class="pf-role">Senior Executive — Product &amp; Marketplace Operations · IndiaMART</div>
+    <div class="pf-tags">
+      <span class="pf-tag">Search Optimization</span>
+      <span class="pf-tag">ML / AI Auditing</span>
+      <span class="pf-tag">Catalog Operations</span>
+      <span class="pf-tag">Data Analytics</span>
+      <span class="pf-tag">SEO &amp; Taxonomy</span>
+    </div>
+  </div>
+
+  <div class="pf-section-label">Featured Projects — IndiaMART (2022–Present)</div>
+
+  <!-- PROJECT 1 -->
+  <div class="pf-card">
+    <div class="pf-card-header">
+      <div class="pf-card-title-group">
+        <div class="pf-card-num">01</div>
+        <div class="pf-card-title">Q-Means ML Model Integration for Product Search</div>
+        <div class="pf-card-subtitle">Replaced legacy dictionary-based API with a deep learning attribute extraction model</div>
+      </div>
+      <span class="pf-badge badge-ml">Machine Learning</span>
+    </div>
+
+    <div class="pf-card-body">
+      <div>
+        <div class="pf-section-title">Problem</div>
+        <div class="pf-text">The existing attribute extraction API was dictionary-based and MCAT-dependent, leading to limited, inaccurate attribute identification and poor search result ranking.</div>
+      </div>
+      <div>
+        <div class="pf-section-title">Approach</div>
+        <div class="pf-steps">
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Integrated Q-Means — a deep learning (Question, Answer) pair recognition model</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Model extracts attributes contextually, independent of MCAT classifications</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Conducted extensive audit comparing Q-Means vs legacy API (555 vs 430 searches)</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Tracked ~1% increase in highly relevant results within top 10 search results</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pf-metrics">
+      <div class="pf-metric">
+        <div class="pf-metric-val">+20.28%</div>
+        <div class="pf-metric-label">Recall improvement</div>
+      </div>
+      <div class="pf-metric">
+        <div class="pf-metric-val">89.46%</div>
+        <div class="pf-metric-label">Precision maintained</div>
+      </div>
+      <div class="pf-metric">
+        <div class="pf-metric-val">+48.78%</div>
+        <div class="pf-metric-label">More attributes identified</div>
+      </div>
+      <div class="pf-metric">
+        <div class="pf-metric-val">Top 10</div>
+        <div class="pf-metric-label">Search result relevance improved</div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="pf-section-title">Tools &amp; Skills</div>
+      <div class="pf-tools">
+        <span class="pf-tool">Deep Learning</span>
+        <span class="pf-tool">NLP</span>
+        <span class="pf-tool">Search Relevance</span>
+        <span class="pf-tool">A/B Auditing</span>
+        <span class="pf-tool">Precision/Recall Analysis</span>
+        <span class="pf-tool">Kibana</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 2 -->
+  <div class="pf-card">
+    <div class="pf-card-header">
+      <div class="pf-card-title-group">
+        <div class="pf-card-num">02</div>
+        <div class="pf-card-title">Search Data-Driven Filter Optimization (500+ Categories)</div>
+        <div class="pf-card-subtitle">Designed PMCAT-level filters using 5 years of search behavior data from Google Analytics</div>
+      </div>
+      <span class="pf-badge badge-search">Search</span>
+    </div>
+
+    <div class="pf-card-body">
+      <div>
+        <div class="pf-section-title">Problem</div>
+        <div class="pf-text">Filters were generated at top MCAT level without considering child MCATs. Redundant filters (e.g., "check" vs "checked"), city-based noise, and irrelevant filter values cluttered the search experience.</div>
+      </div>
+      <div>
+        <div class="pf-section-title">Approach</div>
+        <div class="pf-steps">
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Extracted &amp; cleaned 5 years of raw search query data via Google Analytics</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Identified key attributes (size, material, brand) by studying user intent per category</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Mapped primary &amp; secondary filters at PMCAT level (e.g., "Stainless Steel Railings" → Grade S304, Brand Jindal)</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Applied stemming &amp; synonym handling to deduplicate filters</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Tracked CTR, search exit rate, and lead conversions post-launch</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="pf-section-title">Key Outcomes</div>
+      <div class="pf-outcome-row"><span class="pf-outcome-icon">↑</span><span>Improved filter adoption and click-through rates across 500+ categories</span></div>
+      <div class="pf-outcome-row"><span class="pf-outcome-icon">↑</span><span>Higher lead conversions by aligning filters with real buyer intent</span></div>
+      <div class="pf-outcome-row"><span class="pf-outcome-icon">↓</span><span>Reduced filter clutter — eliminated irrelevant, redundant, and city-based filters</span></div>
+    </div>
+
+    <div class="card-footer" style="border-top: 0.5px solid var(--border-t);">
+      <div class="pf-section-title">Tools &amp; Skills</div>
+      <div class="pf-tools">
+        <span class="pf-tool">Google Analytics</span>
+        <span class="pf-tool">LLM-assisted analysis</span>
+        <span class="pf-tool">NLP (stemming, synonyms)</span>
+        <span class="pf-tool">Excel</span>
+        <span class="pf-tool">Taxonomy Design</span>
+        <span class="pf-tool">CTR Analysis</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 3 -->
+  <div class="pf-card">
+    <div class="pf-card-header">
+      <div class="pf-card-title-group">
+        <div class="pf-card-num">03</div>
+        <div class="pf-card-title">ML Model Audit — Orto, Lipi &amp; Hiro</div>
+        <div class="pf-card-subtitle">Quality evaluation of spell correction, language detection, and translation models in search</div>
+      </div>
+      <span class="pf-badge badge-audit">Audit / QA</span>
+    </div>
+
+    <div class="pf-card-body">
+      <div>
+        <div class="pf-section-title">Scope</div>
+        <div class="pf-steps">
+          <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500">Orto</strong> — Spell correction accuracy for user search queries</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500">Lipi</strong> — Language detection for multilingual query routing</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500">Hiro</strong> — Query translation for cross-language search compatibility</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="pf-section-title">Approach</div>
+        <div class="pf-steps">
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Sampled real search queries from multiple cities across India</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Identified incorrect corrections, missed corrections, and wrong translations</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Performed RCA and raised structured tickets in OpenProject</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Provided case studies with context-aware correction recommendations</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="pf-section-title">Sample Findings — Spell Correction Errors</div>
+      <table class="pf-table" style="margin-top: 6px;">
+        <thead>
+          <tr>
+            <th>User Query</th>
+            <th>Incorrect Output</th>
+            <th>Correct Spelling</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>bathrok wiper</td><td class="tag-wrong">bathrock wiper</td><td class="tag-right">bathroom wiper</td></tr>
+          <tr><td>potassium pemagnet for aquaculture</td><td class="tag-wrong">potassium permhone...</td><td class="tag-right">potassium permanganate...</td></tr>
+          <tr><td>pteg sheet</td><td class="tag-wrong">(no correction)</td><td class="tag-right">petg sheet</td></tr>
+          <tr><td>sher mesh</td><td class="tag-wrong">(no correction)</td><td class="tag-right">sheer mesh</td></tr>
+          <tr><td>Coun starch 10kgs</td><td class="tag-wrong">(no correction)</td><td class="tag-right">Corn starch 10kgs</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-footer" style="border-top: 0.5px solid var(--border-t);">
+      <div class="pf-section-title">Impact</div>
+      <div class="pf-outcome-row"><span class="pf-outcome-icon">↓</span><span>Reduced search failures caused by incorrect query corrections</span></div>
+      <div class="pf-outcome-row"><span class="pf-outcome-icon">↑</span><span>Improved multilingual search accuracy via better language detection</span></div>
+      <div class="pf-outcome-row"><span class="pf-outcome-icon">↑</span><span>Enhanced user experience through meaningful cross-language translations</span></div>
+      <div class="note-box"><strong style="font-weight:500">Search Quality context:</strong> Google's Search Quality Evaluator Guidelines (Section 19.0) establish that for obviously misspelled queries, raters must evaluate results based on user intent — not literal spelling. A search for "bathrok wiper" should be treated as "bathroom wiper." This audit ensured IndiaMART's ML models met the same standard: correctly resolving intent even when queries arrive imperfect. Poor spell correction translates directly to a "Fails to Meet" result in quality frameworks — the very failures this audit identified and helped fix.</div>
+    </div>
+
+    <div class="card-footer" style="border-top: 0.5px solid var(--border-t);">
+      <div class="pf-section-title">Tools &amp; Skills</div>
+      <div class="pf-tools">
+        <span class="pf-tool">Root Cause Analysis</span>
+        <span class="pf-tool">OpenProject</span>
+        <span class="pf-tool">Query Analytics</span>
+        <span class="pf-tool">NLP evaluation</span>
+        <span class="pf-tool">Precision / Recall</span>
+        <span class="pf-tool">Cross-functional collaboration</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 4 -->
+  <div class="pf-card">
+    <div class="pf-card-header">
+      <div class="pf-card-title-group">
+        <div class="pf-card-num">04</div>
+        <div class="pf-card-title">Agent Next Action Classification (AI Training – E-commerce Support)</div>
+        <div class="pf-card-subtitle">Freelance · Firstsource — Training data annotation for AI customer support decision models</div>
+      </div>
+      <span class="pf-badge badge-ml">AI / Annotation</span>
+    </div>
+
+    <div class="pf-card-body single">
+      <div>
+        <div class="pf-section-title">Objective</div>
+        <div class="pf-text" style="margin-bottom: 12px;">Trained AI models to correctly predict what a customer support agent should do next in an e-commerce conversation — whether to ask for more information, start troubleshooting, provide solution options, verify identity, transfer to a specialized team, or close the conversation.</div>
+        <div class="pf-section-title">What I Did</div>
+        <div class="pf-steps">
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Wrote realistic multi-turn conversations between a customer and support agent for diverse e-commerce scenarios</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Created the final customer message (Input) that the AI model must analyze to decide the next action</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Wrote step-by-step reasoning traces explaining why a particular next action is the only logical outcome</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Applied metadata rules for each scenario: tone (formal/informal), cultural context, product category, and complexity level</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Ensured ground-truth actions (e.g., Verify Identity, Troubleshooting, Solution Options) were unambiguous given the conversation context</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="pf-section-title">Example Scenario</div>
+      <div style="background: var(--bg-secondary); border-radius: var(--radius-md); padding: 10px 12px; font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+        Customer asks agent to check their order details → correct next action is <strong style="font-weight:500; color: var(--text-primary);">Verify Identity</strong>, because accessing account information requires authentication first. The reasoning trace must explain this chain of logic explicitly so the model learns the decision boundary.
+      </div>
+    </div>
+
+    <div class="card-footer" style="border-top: 0.5px solid var(--border-t);">
+      <div class="pf-section-title">Impact</div>
+      <div class="pf-outcome-row"><span class="pf-outcome-icon">↑</span><span>Improved model's ability to understand conversation context and detect customer intent</span></div>
+      <div class="pf-outcome-row"><span class="pf-outcome-icon">↑</span><span>Helped the AI learn to follow proper support workflows reliably across diverse scenarios</span></div>
+      <div class="pf-outcome-row"><span class="pf-outcome-icon">↑</span><span>Strengthened model decision consistency through structured, unambiguous annotation methodology</span></div>
+    </div>
+
+    <div class="card-footer" style="border-top: 0.5px solid var(--border-t);">
+      <div class="pf-section-title">Tools &amp; Skills</div>
+      <div class="pf-tools">
+        <span class="pf-tool">AI Data Annotation</span>
+        <span class="pf-tool">LLM Training</span>
+        <span class="pf-tool">Conversation Design</span>
+        <span class="pf-tool">Reasoning Traces</span>
+        <span class="pf-tool">Metadata Structuring</span>
+        <span class="pf-tool">E-commerce Domain Knowledge</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 05: ENGAGEMENT & CTR REPORT -->
+  <div class="pf-card" style="margin-top: 1rem;">
+    <div class="pf-card-header">
+      <div class="pf-card-title-group">
+        <div class="pf-card-num">05</div>
+        <div class="pf-card-title">Weekly Engagement &amp; CTR Report — IndiaMART Search</div>
+        <div class="pf-card-subtitle">Owned weekly · Mobile + Desktop · India &amp; Foreign buyer segments · Weekly + Monthly cadence</div>
+      </div>
+      <span class="pf-badge badge-data">Analytics</span>
+    </div>
+
+    <div class="pf-card-body">
+      <div>
+
+        <div class="pf-section-title">What This Report Measures</div>
+        <div class="pf-text">Every week, millions of buyers search for products on IndiaMART. This report answers one question: <em>after searching, are buyers actually clicking on products, contacting suppliers, and placing enquiries?</em> It tracks three core health metrics across 6+ search segments — Mobile and Desktop — to help the product team understand what's working and what needs attention.</div>
+
+        <div style="margin-top: 12px;">
+          <div class="pf-section-title">The 3 Metrics Tracked (in plain terms)</div>
+          <div class="pf-steps">
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">Engagement</strong> — out of every 100 buyers who landed on a search page, how many clicked a product, called a supplier, or sent an enquiry? Higher = better search experience.</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">CTR (Click-Through Rate)</strong> — out of every 100 search page visits, how many resulted in a click to a product detail or supplier page? Indicates how relevant the search results are.</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">Conversion</strong> — out of every 100 visits, how many buyers took a direct contact action (enquiry or call)? The closest signal to a business outcome.</span></div>
+          </div>
+        </div>
+
+        <div style="margin-top: 12px;">
+          <div class="pf-section-title">What Gets Tracked Each Week</div>
+          <div class="pf-steps">
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">All India + Foreign</strong> — the full platform view; used as the top-line number in leadership reviews</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">City Searches</strong> — when a buyer searches specifically in a city (e.g. "packaging material in Delhi"). These buyers are more intent-driven and consistently show higher engagement than generic searches</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">All India Searches</strong> — generic searches without a city filter; serves as the baseline for comparison</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">Attribute / Filter Searches</strong> — when buyers refine results using filters (e.g. "T-shirts, cotton, blue"). Tracked separately to measure the direct impact of filter quality improvements</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+
+        <div class="pf-section-title">How the Report Is Built</div>
+        <div class="pf-text" style="margin-bottom: 8px;">Data is pulled from three internal sources each week, cross-validated, and compiled into a structured Excel tracker:</div>
+        <div class="pf-steps">
+          <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">GLadmin</strong> — IndiaMART's internal admin tool, used to pull enquiry counts, C2C call volumes, and search query data</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">Google Analytics (GA4)</strong> — used for pageview counts and click events (product page clicks, supplier page clicks) by platform and segment</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">Power BI</strong> — used to cross-check GA4 numbers and pull app-specific data (Android/iOS) before the report is published</span></div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div class="pf-text">Each metric gets a week-on-week change column (↑↓). Any notable movement is documented with a reason — for example, if a new feature was launched that week. The all-time best score for each metric is also tracked, so the team immediately knows when a new high is hit.</div>
+        </div>
+
+        <div style="margin-top: 12px;">
+          <div class="pf-section-title">Real Example — Why This Report Matters</div>
+          <div class="note-box">
+            When IndiaMART launched a major platform update (Unified Buyer Experience via WebView), mobile Engagement dropped ~8% the following week. The weekly report flagged it immediately via the change column.<br><br>
+            On investigating, I found the update had accidentally broken how product-page clicks were being recorded in GA4 — the actual buyer behaviour hadn't changed, only the tracking had. <strong style="color:var(--text-primary)">The issue was fixed before month-end, preventing it from showing as a false drop in the leadership monthly review.</strong>
+          </div>
+        </div>
+
+        <div style="margin-top: 12px;">
+          <div class="pf-section-title">Sample Data — Week of 13–19 Apr '26</div>
+          <table class="pf-table" style="margin-top: 6px;">
+            <thead>
+              <tr>
+                <th>Segment</th>
+                <th>Metric</th>
+                <th>Mobile</th>
+                <th>Desktop</th>
+                <th>WoW Δ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>India + Foreign</td>
+                <td>Engagement</td>
+                <td>41.88</td>
+                <td>37.50</td>
+                <td>+0.01 / −0.01</td>
+              </tr>
+              <tr>
+                <td>India + Foreign</td>
+                <td>CTR</td>
+                <td>0.368</td>
+                <td>0.311</td>
+                <td>0.00 / −0.01</td>
+              </tr>
+              <tr>
+                <td>City Searches</td>
+                <td>Engagement</td>
+                <td>44.68</td>
+                <td>41.35</td>
+                <td>0.00 / −0.03</td>
+              </tr>
+              <tr>
+                <td>All India Searches</td>
+                <td>Engagement</td>
+                <td>36.92</td>
+                <td>32.19</td>
+                <td>0.00 / −0.01</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pf-text" style="margin-top: 7px; font-size: 12px;"><em>City Searches score ~8 points higher than All India on mobile — buyers who search with a city in mind are more focused and more likely to engage with results.</em></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pf-metrics">
+      <div class="pf-metric">
+        <div class="pf-metric-val">44.72</div>
+        <div class="pf-metric-label">Best-ever mobile engagement (City searches)</div>
+      </div>
+      <div class="pf-metric">
+        <div class="pf-metric-val">0.538</div>
+        <div class="pf-metric-label">Best-ever desktop CTR (City searches)</div>
+      </div>
+      <div class="pf-metric">
+        <div class="pf-metric-val">3+ yrs</div>
+        <div class="pf-metric-label">Longitudinal weekly data maintained</div>
+      </div>
+      <div class="pf-metric">
+        <div class="pf-metric-val">6+</div>
+        <div class="pf-metric-label">Segments tracked per week</div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="pf-section-title">Tools &amp; Skills</div>
+      <div class="pf-tools">
+        <span class="pf-tool">GLadmin</span>
+        <span class="pf-tool">Google Analytics (GA4)</span>
+        <span class="pf-tool">Power BI</span>
+        <span class="pf-tool">Excel (Advanced)</span>
+        <span class="pf-tool">KPI Reporting</span>
+        <span class="pf-tool">WoW Analysis</span>
+        <span class="pf-tool">RCA Documentation</span>
+        <span class="pf-tool">Stakeholder Reporting</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 06: LOCALISATION REPORT -->
+  <div class="pf-card" style="margin-top: 1rem;">
+    <div class="pf-card-header">
+      <div class="pf-card-title-group">
+        <div class="pf-card-num">06</div>
+        <div class="pf-card-title">Weekly Localisation Report — IndiaMART City Search Quality</div>
+        <div class="pf-card-subtitle">Owned weekly · Mobile + Desktop · Tracks local supplier matchmaking across Tier 1, 2 &amp; 3 cities</div>
+      </div>
+      <span class="pf-badge badge-search">Search / Discovery</span>
+    </div>
+
+    <div class="pf-card-body">
+      <div>
+
+        <div class="pf-section-title">What This Report Measures</div>
+        <div class="pf-text">When a buyer in Pune searches for "packaging material," are they actually seeing suppliers from Pune — or from Mumbai, Delhi, or somewhere 500km away? This report tracks exactly that. It measures how well IndiaMART's search connects buyers to nearby, relevant suppliers — which is core to the platform's local marketplace value.</div>
+
+        <div style="margin-top: 12px;">
+          <div class="pf-section-title">The Key Metrics (in plain terms)</div>
+          <div class="pf-steps">
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">City Searches %</strong> — what share of total search traffic is landing on city-specific pages (e.g. "pipes in Delhi") vs the generic All India search. Higher means more buyers are getting a localised experience.</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">Local Seller Introduction in Top 5</strong> — of the first 5 suppliers shown in search results, what % are within 50km / 100km / 250km of the buyer's searched city? Tracked separately for Tier 1, 2, and 3 cities.</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">% Enquiry within 250km</strong> — of all enquiries sent by buyers on city search pages, what % actually reached a nearby supplier? This shows real buyer behaviour, not just what results were displayed.</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">Buyer City vs Search City</strong> — did the buyer search in their own city, or a different one? When they match, local suppliers get enquiries. When they don't match, it reveals a gap in city-redirection logic.</span></div>
+          </div>
+        </div>
+
+        <div style="margin-top: 12px;">
+          <div class="pf-section-title">Scope</div>
+          <div class="pf-steps">
+            <div class="pf-step"><div class="pf-step-dot"></div><span>All metrics split by Mobile and Desktop; Tier 1, 2, 3 cities each tracked separately with distance-bucket breakdowns (0km, 0–50km, 50–100km, 100–250km, 250km+)</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">Delhi NCR deep-dive</strong> — a dedicated section tracking 7 cities (Delhi, New Delhi, Gurugram, Noida, Greater Noida, Ghaziabad, Faridabad) to understand local buyer-supplier connection patterns in India's largest market</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+
+        <div class="pf-section-title">How the Report Is Built</div>
+        <div class="pf-text" style="margin-bottom: 8px;">Three data sources are combined each week and compiled into a structured Excel tracker:</div>
+        <div class="pf-steps">
+          <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">GLadmin</strong> — the main data source. Pulls enquiry records with buyer city, search city, and seller city — allowing distance calculations between them. C2C call data is also pulled here.</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">Power BI</strong> — used to pull city search pageview volumes and Tier 1/2/3 traffic splits, and to cross-check enquiry counts for accuracy</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span><strong style="font-weight:500; color:var(--text-primary)">Google Analytics (GA4)</strong> — used for Mobile site engagement and CTR on city search pages vs All India search pages</span></div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div class="pf-text">Each metric shows the week-on-week change. Any significant movement is noted with the reason — typically a product feature that launched that week. This lets the team immediately connect a number change to a specific product decision.</div>
+        </div>
+
+        <div style="margin-top: 12px;">
+          <div class="pf-section-title">Use Case 1 — Catching a Hidden Problem After a Feature Launch</div>
+          <div class="note-box">
+            The product team launched IP-based city redirection for Tier 3 users — automatically sending them to a city search page instead of the generic All India page. City Searches % for Tier 3 went up as expected. <strong style="color:var(--text-primary)">But the Local Seller Introduction in Top 5 for Tier 3 dropped at the same time.</strong><br><br>
+            This meant more buyers were reaching city pages, but the search results weren't actually showing local suppliers — because supplier density in smaller Tier 3 cities wasn't strong enough. Without tracking both metrics side-by-side, this gap would have been invisible. The report flagged it, and it directly led to a follow-up product initiative to grow local seller coverage in Tier 3 cities.
+          </div>
+        </div>
+
+        <div style="margin-top: 12px;">
+          <div class="pf-section-title">Use Case 2 — Answering a Leadership Question with Data</div>
+          <div class="note-box">
+            A business stakeholder asked: <em>"When a Delhi buyer searches on IndiaMART, are they actually connecting with Delhi suppliers?"</em><br><br>
+            The Delhi NCR deep-dive answered it precisely: when the buyer's registered city matched their search city, ~78–80% of their enquiries went to a supplier within 50km. But when the two cities didn't match, most enquiries went to suppliers far away — revealing that the platform wasn't redirecting cross-city searches to local results. <strong style="color:var(--text-primary)">This finding directly informed a product improvement to the city-selection experience.</strong>
+          </div>
+        </div>
+
+        <div style="margin-top: 12px;">
+          <div class="pf-section-title">Sample Data — Week of 9–15 Nov '24</div>
+          <table class="pf-table" style="margin-top: 6px;">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Mobile</th>
+                <th>Desktop</th>
+                <th>WoW Δ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>City Searches %</td>
+                <td>90.5%</td>
+                <td>94.1%</td>
+                <td>stable</td>
+              </tr>
+              <tr>
+                <td>Local Seller Intro Top 5 — Tier 1</td>
+                <td colspan="2" style="text-align:center">93.5% ↑ best ever</td>
+                <td>+0.00</td>
+              </tr>
+              <tr>
+                <td>Local Seller Intro Top 5 — Tier 2</td>
+                <td colspan="2" style="text-align:center">84.3%</td>
+                <td>+0.01</td>
+              </tr>
+              <tr>
+                <td>Local Seller Intro Top 5 — Tier 3</td>
+                <td colspan="2" style="text-align:center">59.7% ↑ best ever</td>
+                <td>+0.01</td>
+              </tr>
+              <tr>
+                <td>% Enquiry within 250km — Tier 1</td>
+                <td>83.6%</td>
+                <td>84.0%</td>
+                <td>+0.01</td>
+              </tr>
+              <tr>
+                <td>Delhi Buyer → Same City Supplier</td>
+                <td colspan="2" style="text-align:center">~78–80%</td>
+                <td>stable</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pf-text" style="margin-top: 7px; font-size: 12px;"><em>Tier 1 local seller intro at 93.5% is a platform best — but Tier 3 at 59.7% shows a 34-point gap, the clearest indicator of where local supplier coverage still needs to grow.</em></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pf-metrics">
+      <div class="pf-metric">
+        <div class="pf-metric-val">92.4%</div>
+        <div class="pf-metric-label">Best-ever City Searches % (Mobile)</div>
+      </div>
+      <div class="pf-metric">
+        <div class="pf-metric-val">93.5%</div>
+        <div class="pf-metric-label">Best-ever Local Seller Intro — Tier 1</div>
+      </div>
+      <div class="pf-metric">
+        <div class="pf-metric-val">7</div>
+        <div class="pf-metric-label">Delhi NCR cities in deep-dive</div>
+      </div>
+      <div class="pf-metric">
+        <div class="pf-metric-val">Tier 1–3</div>
+        <div class="pf-metric-label">Distance-bucket analysis per city tier</div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="pf-section-title">Tools &amp; Skills</div>
+      <div class="pf-tools">
+        <span class="pf-tool">GLadmin</span>
+        <span class="pf-tool">Power BI</span>
+        <span class="pf-tool">Google Analytics (GA4)</span>
+        <span class="pf-tool">Excel (Advanced)</span>
+        <span class="pf-tool">Geo-Distance Analysis</span>
+        <span class="pf-tool">City Search Analytics</span>
+        <span class="pf-tool">WoW Analysis</span>
+        <span class="pf-tool">Stakeholder Reporting</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf-divider"></div>
+
+  <div class="pf-section-label">Buyer Experience Case Studies — Export IndiaMART · 40+ International Markets (US, UK, Europe)</div>
+
+  <!-- CASE STUDY 1 -->
+  <div class="pf-card">
+    <div class="pf-card-header">
+      <div class="pf-card-title-group">
+        <div class="pf-card-num">CS·01</div>
+        <div class="pf-card-title">IndiaMART Android App Unavailable for UK-Based Buyers</div>
+        <div class="pf-card-subtitle">export.indiamart.com · UK market — geo-restriction on Google Play Store blocking international buyer access</div>
+      </div>
+      <span class="pf-badge badge-data">Platform / CX</span>
+    </div>
+
+    <div class="pf-card-body">
+      <div>
+        <div class="pf-section-title">Issue Identified</div>
+        <div class="pf-text">The IndiaMART Android app was not available for download in the United Kingdom. Google Play Store displayed the message <em>"This item is not available in your country,"</em> preventing UK-based buyers from installing the app. Buyers who had already placed orders were unable to track order status or access in-app support.</div>
+        <div style="margin-top: 10px;">
+          <div class="pf-section-title">Buyer Journey Breakdown</div>
+          <div class="pf-steps">
+            <div class="pf-step"><div class="pf-step-dot"></div><span>UK buyer searches for IndiaMART app on Google Play Store</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span>Play Store displays: <em>"This item is not available in your country"</em></span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span>Buyer is unable to install the app — order tracking and support become inaccessible</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pf-section-title">Impact</div>
+        <div class="pf-steps">
+          <div class="pf-step"><div class="pf-step-dot"></div><span>UK buyers unable to access the Android app, leading to poor post-order experience</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>Order tracking and in-app support completely blocked for this buyer segment</span></div>
+          <div class="pf-step"><div class="pf-step-dot"></div><span>GL ID: 258864948 escalated to product team; issue could not be replicated from internal end — flagged for Play Store geo-distribution review</span></div>
+        </div>
+        <div style="margin-top: 10px;">
+          <div class="pf-section-title">Action Taken</div>
+          <div class="pf-text">Documented the full buyer journey, raised an internal escalation with GL ID, and flagged the geo-restriction for review by the product and distribution team. Recommended expanding Play Store availability to UK region.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="pf-section-title">Tools &amp; Skills</div>
+      <div class="pf-tools">
+        <span class="pf-tool">Freshdesk</span>
+        <span class="pf-tool">OpenProject</span>
+        <span class="pf-tool">export.indiamart.com</span>
+        <span class="pf-tool">Buyer Journey Mapping</span>
+        <span class="pf-tool">Cross-functional Escalation</span>
+        <span class="pf-tool">International Markets</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDY 2 -->
+  <div class="pf-card">
+    <div class="pf-card-header">
+      <div class="pf-card-title-group">
+        <div class="pf-card-num">CS·02</div>
+        <div class="pf-card-title">Buyers Unable to Search Specific Supplier by Company Name on Export IndiaMART</div>
+        <div class="pf-card-subtitle">export.indiamart.com · International buyers — missing company-name search preventing direct supplier discovery</div>
+      </div>
+      <span class="pf-badge badge-search">Search / Discovery</span>
+    </div>
+
+    <div class="pf-card-body">
+      <div>
+        <div class="pf-section-title">Issue Identified</div>
+        <div class="pf-text">Buyers attempting to connect with a specific supplier directly by searching the company name with city/location on <em>export.indiamart.com</em> were unable to locate the supplier profile. This feature was not available on the export platform, preventing buyers from finding suppliers whose details they already had.</div>
+        <div style="margin-top: 10px;">
+          <div class="pf-section-title">Buyer Verbatim</div>
+          <div style="background: var(--bg-secondary); border-radius: var(--radius-md); padding: 10px 12px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 6px;">
+            <em>"I have received emails from a supplier calling themselves 'Fresh MedStore' and I want to search on IndiaMART and find their profile page. I couldn't see any function on your website to use for this."</em> — Buyer 1 (GL ID: 263818440)
+          </div>
+          <div style="background: var(--bg-secondary); border-radius: var(--radius-md); padding: 10px 12px; font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
+            <em>"I am looking for track pants called Jerry Sport, manufactured by SM Hosiery, Ludhiana Punjab. Please connect me."</em> — Buyer 2 (GL ID: 263818041)
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pf-section-title">Root Cause</div>
+        <div class="pf-text">Company name + city/location search was not implemented on the export platform. Buyers with prior supplier knowledge had no direct lookup path, forcing them to rely on general product searches that returned unrelated results.</div>
+        <div style="margin-top: 10px;">
+          <div class="pf-section-title">Impact &amp; Recommendation</div>
+          <div class="pf-steps">
+            <div class="pf-step"><div class="pf-step-dot"></div><span>Buyers unable to find supplier storefronts even when knowing the exact company name and location</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span>Resulted in lost connections and reduced platform trust among international buyers</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span>Raised OpenProject ticket recommending company name + location search on export.indiamart.com</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="pf-section-title">Tools &amp; Skills</div>
+      <div class="pf-tools">
+        <span class="pf-tool">Freshdesk</span>
+        <span class="pf-tool">OpenProject</span>
+        <span class="pf-tool">export.indiamart.com</span>
+        <span class="pf-tool">Search Gap Analysis</span>
+        <span class="pf-tool">Buyer Intent Analysis</span>
+        <span class="pf-tool">Root Cause Analysis</span>
+        <span class="pf-tool">Export Marketplace</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDY 3 -->
+  <div class="pf-card">
+    <div class="pf-card-header">
+      <div class="pf-card-title-group">
+        <div class="pf-card-num">CS·03</div>
+        <div class="pf-card-title">Buyers Receiving Unwanted Calls &amp; Messages from Sellers After Search / Purchase</div>
+        <div class="pf-card-subtitle">export.indiamart.com · International buyers across US, UK &amp; Europe — seller harassment pattern identified across 5 tickets</div>
+      </div>
+      <span class="pf-badge badge-audit">Trust &amp; Safety</span>
+    </div>
+
+    <div class="pf-card-body">
+      <div>
+        <div class="pf-section-title">Issue Identified</div>
+        <div class="pf-text">Multiple buyers reported receiving excessive calls, emails, and WhatsApp messages from sellers — even when the buyer had only browsed (no enquiry submitted), had already completed a purchase, or no longer required quotations. Buyers were requesting account deletion, phone/email removal, and seller contact suppression.</div>
+        <div style="margin-top: 10px;">
+          <div class="pf-section-title">Key Scenarios</div>
+          <div class="pf-steps">
+            <div class="pf-step"><div class="pf-step-dot"></div><span>Buyer searches a product but does <em>not</em> submit an enquiry — sellers still contact them</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span>Buyer has already completed their purchase — sellers continue to call and message</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span>No visible setting available to disable or limit seller contact, causing frustration</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="pf-section-title">Buyer Verbatim (Sample)</div>
+        <div style="background: var(--bg-secondary); border-radius: var(--radius-md); padding: 10px 12px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 6px;">
+          <em>"If I search something but don't submit an enquiry why are vendors constantly contacting me as if I have lodged consent?"</em> — FD #8761586
+        </div>
+        <div style="background: var(--bg-secondary); border-radius: var(--radius-md); padding: 10px 12px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 6px;">
+          <em>"I have been overwhelmed with countless businesses wanting to sell to me. I already made a purchase weeks ago but they keep messaging, emailing and calling."</em> — FD #8765843
+        </div>
+        <div style="margin-top: 10px;">
+          <div class="pf-section-title">Impact</div>
+          <div class="pf-steps">
+            <div class="pf-step"><div class="pf-step-dot"></div><span>Multiple buyers threatened to delete the app or account if the issue persisted</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span>Negative impact on overall buyer experience and platform retention</span></div>
+            <div class="pf-step"><div class="pf-step-dot"></div><span>Aggregated 5 buyer tickets into a structured case study; recommended a seller contact opt-out setting and enquiry-consent enforcement</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="pf-section-title">Tickets Referenced</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;">
+        <span class="pf-tool">FD #8761586</span>
+        <span class="pf-tool">FD #8760819 · GL 214524015</span>
+        <span class="pf-tool">FD #8749066</span>
+        <span class="pf-tool">FD #8754524</span>
+        <span class="pf-tool">FD #8765843</span>
+      </div>
+    </div>
+
+    <div class="card-footer" style="border-top: 0.5px solid var(--border-t);">
+      <div class="pf-section-title">Tools &amp; Skills</div>
+      <div class="pf-tools">
+        <span class="pf-tool">Freshdesk</span>
+        <span class="pf-tool">OpenProject</span>
+        <span class="pf-tool">export.indiamart.com</span>
+        <span class="pf-tool">Pattern Recognition</span>
+        <span class="pf-tool">Root Cause Analysis</span>
+        <span class="pf-tool">Buyer Trust &amp; Safety</span>
+        <span class="pf-tool">Stakeholder Escalation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf-divider"></div>
+
+  <!-- SKILLS -->
+  <div class="pf-section-label">Skills Snapshot</div>
+  <div class="skills-grid">
+    <div class="skill-block">
+      <div class="pf-section-title" style="margin-bottom: 8px;">Analytics &amp; Data</div>
+      <div class="pf-tools">
+        <span class="pf-tool">Excel</span>
+        <span class="pf-tool">SQL</span>
+        <span class="pf-tool">Power BI</span>
+        <span class="pf-tool">Tableau</span>
+        <span class="pf-tool">Google Analytics</span>
+        <span class="pf-tool">Kibana</span>
+        <span class="pf-tool">IBM SPSS</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="pf-section-title" style="margin-bottom: 8px;">Operations &amp; PM</div>
+      <div class="pf-tools">
+        <span class="pf-tool">JIRA</span>
+        <span class="pf-tool">OpenProject</span>
+        <span class="pf-tool">Freshdesk</span>
+        <span class="pf-tool">Zendesk</span>
+        <span class="pf-tool">Helium 10</span>
+        <span class="pf-tool">Apollo.io</span>
+        <span class="pf-tool">Zapier</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="pf-section-title" style="margin-bottom: 8px;">Platforms &amp; Tools</div>
+      <div class="pf-tools">
+        <span class="pf-tool">Shopify</span>
+        <span class="pf-tool">HubSpot</span>
+        <span class="pf-tool">LLMs</span>
+        <span class="pf-tool">CRM Tools</span>
+        <span class="pf-tool">Slack</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="pf-section-title" style="margin-bottom: 8px;">Domain Expertise</div>
+      <div class="pf-tools">
+        <span class="pf-tool">SEO Audits</span>
+        <span class="pf-tool">Taxonomy</span>
+        <span class="pf-tool">Catalog Ops</span>
+        <span class="pf-tool">Search Relevance</span>
+        <span class="pf-tool">Vendor Mgmt</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
