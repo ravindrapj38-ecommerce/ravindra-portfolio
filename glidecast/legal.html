@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glidecast Terms & Policies</title>
+<meta name="description" content="Terms of Service, Privacy Policy and Refund Policy for Glidecast.">
+<meta name="theme-color" content="#07070c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b0b12" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+      <span data-cfg="name">Glidecast</span>
+    </a>
+    <a href="app.html" class="btn btn-primary btn-sm">Open the recorder</a>
+  </div>
+</header>
+
+<main class="legal">
+  <h1>Terms & Policies</h1>
+  <p>Last updated: <span data-updated>October 12, 2026</span>. <span data-cfg="name">Glidecast</span> is operated by <span data-cfg="ownerName"></span> (<span data-cfg="country"></span>). Questions? Email <a data-cfg-mail></a>.</p>
+
+  <h2 id="terms">Terms of Service</h2>
+  <h3>1. The service</h3>
+  <p><span data-cfg="name">Glidecast</span> is a browser-based tool for recording, editing and exporting screen recordings. The Free plan is provided at no cost. The Pro plan is a paid subscription that unlocks additional features described on our pricing page.</p>
+  <h3>2. Accounts & licenses</h3>
+  <p>Pro is unlocked with a license key delivered after purchase. Your license is personal to you and may be activated on a limited number of devices. You may not share, resell or publish your license key.</p>
+  <h3>3. Payments & billing</h3>
+  <p>Orders are processed by our online reseller and Merchant of Record, Lemon Squeezy, which also handles customer service inquiries about payments and returns. Subscriptions renew automatically at the end of each billing period until cancelled. You can cancel anytime using the link in your receipt email; you keep Pro access until the end of the paid period.</p>
+  <h3>4. Your content</h3>
+  <p>You own everything you record and export. Recordings are processed locally on your device, and we never receive them. You are responsible for having the rights to anything you record and share.</p>
+  <h3>5. Acceptable use</h3>
+  <p>Don't use the service to violate laws or the rights of others, including recording people without required consent or capturing content you are not permitted to copy.</p>
+  <h3>6. Disclaimer & liability</h3>
+  <p>The service is provided "as is" without warranties of any kind. To the maximum extent permitted by law, our total liability for any claim is limited to the amount you paid us in the 12 months before the claim.</p>
+  <h3>7. Changes</h3>
+  <p>We may update these terms. Material changes will be posted on this page with a new "last updated" date.</p>
+
+  <h2 id="privacy">Privacy Policy</h2>
+  <h3>What we don't collect</h3>
+  <p>Your screen recordings, audio and exported videos never leave your device. All recording, analysis and rendering happens inside your browser.</p>
+  <h3>What we do process</h3>
+  <ul>
+    <li><strong>Purchase data:</strong> when you buy Pro, Lemon Squeezy processes your name, email, billing address and payment details under its own privacy policy. We receive your email and order details to provide support.</li>
+    <li><strong>License checks:</strong> the app sends your license key to Lemon Squeezy's license API to verify it's active.</li>
+    <li><strong>Local storage:</strong> your editor preferences and license key are stored in your browser's local storage on your device.</li>
+    <li><strong>Hosting logs:</strong> our web host may log standard request data (IP address, browser type) for security and reliability.</li>
+  </ul>
+  <h3>Your rights</h3>
+  <p>You can request access to or deletion of the personal data we hold (your email and order history) by emailing <a data-cfg-mail></a>. Clearing your browser's site data removes everything stored locally.</p>
+
+  <h2 id="refunds">Refund Policy</h2>
+  <p>If you're not happy with Pro, email <a data-cfg-mail></a> within 14 days of your first payment and we'll issue a full refund. Renewal payments can be refunded within 7 days of the renewal date if you haven't used Pro since. Refunds are processed through Lemon Squeezy back to your original payment method.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© <span data-year></span> <span data-cfg="name">Glidecast</span></div>
+    <nav><a href="index.html">Home</a><a href="app.html">Recorder</a><a href="#terms">Terms</a><a href="#privacy">Privacy</a><a href="#refunds">Refunds</a></nav>
+  </div>
+</footer>
+
+<script src="assets/config.js"></script>
+<script>
+(() => {
+  const C = window.APP_CONFIG;
+  ['name', 'ownerName', 'country'].forEach((k) => document.querySelectorAll(`[data-cfg="${k}"]`).forEach((el) => { el.textContent = C[k]; }));
+  document.querySelectorAll('[data-cfg-mail]').forEach((el) => { el.textContent = C.supportEmail; el.href = 'mailto:' + C.supportEmail; });
+  document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
+})();
+</script>
+</body>
+</html>

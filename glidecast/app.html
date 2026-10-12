@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glidecast Recorder</title>
+<meta name="description" content="Record your screen and export a polished video with automatic zoom, backgrounds and rounded frames, all in your browser.">
+<meta name="theme-color" content="#07070c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23a78bfa'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 13V9h4M23 13V9h-4M9 19v4h4M23 19v4h-4' stroke='%230b0b12' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body class="app">
+
+<header class="topbar">
+  <a href="index.html" class="logo">
+    <span class="logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b0b12" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></span>
+    <span data-cfg="name">Glidecast</span>
+  </a>
+  <div class="top-right">
+    <span class="plan-badge" id="plan-badge">Free</span>
+    <button class="btn btn-ghost btn-sm" id="btn-license">License</button>
+    <button class="btn btn-primary btn-sm" id="btn-upgrade">Upgrade to Pro</button>
+  </div>
+</header>
+
+<!-- ── Start ───────────────────────────────────── -->
+<section class="view view-start" id="view-start">
+  <div class="start-card">
+    <h1>Record your screen</h1>
+    <p class="muted">Pick a tab, window or screen. Glidecast adds smooth zooms and a polished frame automatically.</p>
+
+    <div class="opts">
+      <label class="switch"><input type="checkbox" id="opt-mic"><span></span> Microphone</label>
+      <label class="switch"><input type="checkbox" id="opt-sys"><span></span> Tab / system audio</label>
+    </div>
+
+    <button class="btn btn-primary rec-btn" id="btn-record">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="7"/></svg>
+      Start recording
+    </button>
+    <p class="unsupported" id="unsupported" hidden>Screen recording isn't available in this browser. Use desktop Chrome, Edge or Firefox, or import a video below.</p>
+
+    <div class="or"><span>or</span></div>
+
+    <label class="drop" id="drop">
+      <input type="file" id="file-input" accept="video/*" hidden>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
+      <span><strong>Import a video</strong>: drop a file here or click to browse</span>
+    </label>
+    <p class="fine" id="free-note"></p>
+  </div>
+</section>
+
+<!-- ── Recording ───────────────────────────────── -->
+<section class="view view-recording" id="view-recording" hidden>
+  <div class="start-card center">
+    <div class="rec-indicator"><i></i> Recording <span id="rec-time">0:00</span></div>
+    <p class="muted">Switch to what you want to show and click around. Come back here or use your browser's <em>Stop sharing</em> button when you're done.</p>
+    <p class="fine" id="rec-limit"></p>
+    <button class="btn btn-primary rec-btn" id="btn-stop">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+      Stop recording
+    </button>
+  </div>
+</section>
+
+<!-- ── Editor ──────────────────────────────────── -->
+<section class="view view-editor" id="view-editor" hidden>
+  <div class="ed-main">
+    <div class="stage" id="stage">
+      <canvas id="preview" width="1280" height="720"></canvas>
+    </div>
+
+    <div class="transport">
+      <button class="icon-btn" id="btn-play" title="Play / pause (Space)" aria-label="Play">
+        <svg id="ic-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15a1 1 0 001.5.86l12.4-7.5a1 1 0 000-1.72L8.5 3.64A1 1 0 007 4.5z"/></svg>
+        <svg id="ic-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" hidden><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+      </button>
+      <span class="time" id="time">0:00 / 0:00</span>
+      <span class="spacer"></span>
+      <button class="btn btn-ghost btn-sm" id="btn-trim-in" title="Trim the start at the playhead">[ Trim start</button>
+      <button class="btn btn-ghost btn-sm" id="btn-trim-out" title="Trim the end at the playhead">Trim end ]</button>
+      <button class="btn btn-ghost btn-sm" id="btn-add-zoom">+ Add zoom</button>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-label">Zooms</div>
+      <div class="tl-track" id="tl-track">
+        <div class="tl-trim tl-trim-l" id="tl-trim-l"></div>
+        <div class="tl-trim tl-trim-r" id="tl-trim-r"></div>
+        <div id="tl-segs"></div>
+        <div class="tl-playhead" id="tl-playhead"></div>
+      </div>
+      <div class="tl-hint">Drag a zoom to move it, drag its edges to resize, and click a zoom to edit it. Press <kbd>Delete</kbd> to remove it.</div>
+    </div>
+  </div>
+
+  <aside class="ed-side">
+    <div class="panel" id="seg-panel" hidden>
+      <div class="panel-h">Selected zoom <span class="muted" id="seg-range"></span></div>
+      <label class="field">Zoom depth <output id="seg-zoom-val"></output>
+        <input type="range" id="seg-zoom" min="1.2" max="3.5" step="0.1">
+      </label>
+      <p class="fine">Click the preview to aim this zoom at a spot.</p>
+      <div class="row">
+        <button class="btn btn-ghost btn-sm" id="seg-done">Done</button>
+        <button class="btn btn-ghost btn-sm danger" id="seg-delete">Delete zoom</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h">Background</div>
+      <div class="swatches" id="swatches"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h">Frame</div>
+      <label class="field">Padding <output id="pad-val"></output>
+        <input type="range" id="set-padding" min="0" max="0.2" step="0.005">
+      </label>
+      <label class="field">Corner radius <output id="rad-val"></output>
+        <input type="range" id="set-radius" min="0" max="48" step="1">
+      </label>
+      <label class="switch"><input type="checkbox" id="set-shadow"><span></span> Soft shadow</label>
+      <label class="field">Format
+        <select id="set-aspect">
+          <option value="16:9">16:9 · YouTube, websites</option>
+          <option value="9:16">9:16 · Shorts, Reels, TikTok</option>
+          <option value="1:1">1:1 · Feeds</option>
+          <option value="4:3">4:3 · Classic</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h">Auto-zoom</div>
+      <label class="field">Default depth <output id="zoom-val"></output>
+        <input type="range" id="set-zoom" min="1.2" max="3.5" step="0.1">
+      </label>
+      <label class="field">Sensitivity
+        <select id="set-sens">
+          <option value="low">Low: only big moments</option>
+          <option value="medium">Medium</option>
+          <option value="high">High: catch small clicks</option>
+        </select>
+      </label>
+      <div class="row">
+        <button class="btn btn-ghost btn-sm" id="btn-redetect">Re-detect</button>
+        <button class="btn btn-ghost btn-sm" id="btn-clear-zooms">Remove all</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h">Export</div>
+      <label class="field">Quality
+        <select id="set-quality">
+          <option value="720">720p HD</option>
+          <option value="1080">1080p Full HD · Pro</option>
+          <option value="1440">1440p 2K · Pro</option>
+        </select>
+      </label>
+      <button class="btn btn-primary btn-block" id="btn-export">Export video</button>
+      <div class="result" id="result" hidden>
+        <div class="result-meta" id="result-meta"></div>
+        <div class="row">
+          <a class="btn btn-ghost btn-sm" id="btn-download" download>Download</a>
+          <button class="btn btn-ghost btn-sm" id="btn-share">Share…</button>
+        </div>
+      </div>
+      <p class="fine" id="wm-note"></p>
+    </div>
+
+    <button class="btn btn-ghost btn-block" id="btn-new">New recording</button>
+  </aside>
+</section>
+
+<!-- ── Busy overlay ────────────────────────────── -->
+<div class="overlay" id="overlay" hidden>
+  <div class="overlay-card">
+    <div class="spinner"></div>
+    <div class="overlay-text" id="overlay-text">Working…</div>
+    <div class="bar" id="overlay-bar" hidden><i id="overlay-fill"></i></div>
+    <p class="fine" id="overlay-note"></p>
+    <button class="btn btn-ghost btn-sm" id="overlay-cancel" hidden>Cancel</button>
+  </div>
+</div>
+
+<!-- ── Upgrade / license dialog ────────────────── -->
+<dialog class="dlg" id="dlg">
+  <form method="dialog" class="dlg-close"><button aria-label="Close">×</button></form>
+  <h2>Glidecast <span class="grad">Pro</span></h2>
+  <p class="muted" id="dlg-reason">HD exports, no watermark, unlimited length and every background.</p>
+  <div class="dlg-plans" id="dlg-plans">
+    <a class="dlg-plan" data-buy="yearly" target="_blank" rel="noopener">
+      <strong>Yearly</strong><span data-p="yearly"></span><em data-save></em>
+    </a>
+    <a class="dlg-plan" data-buy="monthly" target="_blank" rel="noopener">
+      <strong>Monthly</strong><span data-p="monthly"></span>
+    </a>
+  </div>
+  <div class="dlg-license">
+    <div class="panel-h">Have a license key?</div>
+    <div class="row">
+      <input type="text" id="lic-key" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" autocomplete="off" spellcheck="false">
+      <button class="btn btn-primary btn-sm" id="lic-activate">Activate</button>
+    </div>
+    <p class="fine" id="lic-status"></p>
+    <div class="row" id="lic-manage" hidden>
+      <a class="btn btn-ghost btn-sm" id="lic-portal" target="_blank" rel="noopener">Manage billing</a>
+      <button class="btn btn-ghost btn-sm danger" id="lic-deactivate">Remove from this device</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Media elements used for playback/analysis (kept rendered but invisible) -->
+<video id="video" class="media-src" playsinline preload="auto"></video>
+<video id="ana-video" class="media-src" playsinline muted preload="auto"></video>
+
+<script src="assets/config.js"></script>
+<script src="assets/license.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
