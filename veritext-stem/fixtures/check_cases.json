@@ -1,0 +1,26 @@
+{
+  "_comment": "Shared by engine (pytest) and web core (vitest). 'fail' lists the hard check codes expected; [] means the rewrite must pass every hard check.",
+  "cases": [
+    {"id": "ok-plain", "original": "We delve into the results, which suggest that the conductivity may decrease to ⟦N1⟧ ⟦C1⟧.", "rewritten": "The results suggest that the conductivity may fall to ⟦N1⟧ ⟦C1⟧.", "fail": []},
+    {"id": "hedge-to-proof", "original": "These data suggest that strain may shift the G peak.", "rewritten": "These data prove that strain shifts the G peak.", "fail": ["hedging_changed"]},
+    {"id": "hedge-removed", "original": "The defects may reduce mobility.", "rewritten": "The defects reduce mobility.", "fail": ["hedging_changed"]},
+    {"id": "hedge-kept-synonym", "original": "The defects may reduce mobility.", "rewritten": "The defects could reduce mobility.", "fail": []},
+    {"id": "correlation-to-cause", "original": "Smoking is associated with lower lung function ⟦C1⟧.", "rewritten": "Smoking causes lower lung function ⟦C1⟧.", "fail": ["causality_changed"]},
+    {"id": "cause-to-correlation", "original": "Annealing leads to larger grains.", "rewritten": "Annealing is linked to larger grains.", "fail": ["causality_changed"]},
+    {"id": "cause-kept", "original": "The shift is due to tensile strain.", "rewritten": "The shift arises because of tensile strain.", "fail": []},
+    {"id": "negation-dropped", "original": "The defects did not alter the peak symmetry.", "rewritten": "The defects altered the peak symmetry.", "fail": ["negation_changed"]},
+    {"id": "negation-added", "original": "The treatment changed the expression of ⟦E1⟧.", "rewritten": "The treatment never changed the expression of ⟦E1⟧.", "fail": ["negation_changed"]},
+    {"id": "negation-kept", "original": "The defects did not alter the peak symmetry.", "rewritten": "The defects left the peak symmetry unchanged, not altered.", "fail": []},
+    {"id": "negation-contraction", "original": "The samples did not melt.", "rewritten": "The samples didn't melt.", "fail": []},
+    {"id": "locked-dropped", "original": "We measured it at ⟦N1⟧ using Raman spectra.", "rewritten": "We measured it using Raman spectra.", "fail": ["locked_missing"]},
+    {"id": "locked-duplicated", "original": "We measured it at ⟦N1⟧ using Raman spectra.", "rewritten": "We measured it at ⟦N1⟧ and ⟦N1⟧ using Raman spectra.", "fail": ["locked_added"]},
+    {"id": "locked-invented", "original": "We measured it at ⟦N1⟧ using Raman spectra.", "rewritten": "We measured it at ⟦N1⟧ using Raman spectra ⟦C9⟧.", "fail": ["locked_added"]},
+    {"id": "locked-corrupted", "original": "We measured it at ⟦N1⟧ using Raman spectra.", "rewritten": "We measured it at ⟦N 1⟧ using Raman spectra.", "fail": ["locked_missing", "locked_corrupt", "number_changed"]},
+    {"id": "number-word-changed", "original": "Three samples were annealed overnight at ⟦N1⟧.", "rewritten": "Four samples were annealed overnight at ⟦N1⟧.", "fail": ["number_changed"]},
+    {"id": "citation-swapped", "original": "Annealing increased grain size ⟦C1⟧, whereas doping reduced carrier mobility ⟦C2⟧.", "rewritten": "Annealing increased grain size ⟦C2⟧, whereas doping reduced carrier mobility ⟦C1⟧.", "fail": ["citation_moved"]},
+    {"id": "citation-moved-to-other-claim", "original": "Annealing increased grain size ⟦C1⟧, whereas doping reduced carrier mobility.", "rewritten": "Annealing increased grain size, whereas doping reduced carrier mobility ⟦C1⟧.", "fail": ["citation_moved"]},
+    {"id": "citation-reordered-ok", "original": "Annealing increased grain size ⟦C1⟧, whereas doping reduced carrier mobility.", "rewritten": "Whereas doping reduced carrier mobility, annealing increased the grain size ⟦C1⟧.", "fail": []},
+    {"id": "citation-end-ok", "original": "The film conductivity drops above ⟦N1⟧ ⟦C1⟧.", "rewritten": "Above ⟦N1⟧, film conductivity drops ⟦C1⟧.", "fail": []},
+    {"id": "empty", "original": "The film conductivity drops above ⟦N1⟧.", "rewritten": "  ", "fail": ["empty"]}
+  ]
+}

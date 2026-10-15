@@ -1,0 +1,50 @@
+{
+  "_comment": "Shared by the Python engine and the TypeScript core. Single-word cues match whole words, case-insensitive; multi-word cues match as phrases. Changing a list changes verification behaviour: update fixtures/check_cases.json in the same commit.",
+  "hedges": [
+    "may", "might", "could", "possibly", "perhaps", "likely", "probably", "plausibly", "presumably",
+    "potentially", "putative", "putatively", "tentative", "tentatively", "apparently", "conceivably",
+    "suggest", "suggests", "suggested", "suggesting", "suggestive",
+    "appear", "appears", "appeared", "seem", "seems", "seemed",
+    "indicate", "indicates", "indicated", "indicating",
+    "hypothesize", "hypothesizes", "hypothesise", "hypothesises", "speculate", "speculates",
+    "is thought to", "are thought to", "is believed to", "are believed to", "to some extent", "in part"
+  ],
+  "boosters": [
+    "prove", "proves", "proved", "proven", "proving", "definitely", "definitively", "clearly", "certainly",
+    "undoubtedly", "unequivocally", "undeniably", "conclusively", "decisively", "always", "invariably",
+    "establish", "establishes", "established", "confirm", "confirms", "confirmed", "confirming",
+    "demonstrate", "demonstrates", "demonstrated", "demonstrating", "must", "without doubt", "beyond doubt"
+  ],
+  "causal": [
+    "cause", "causes", "caused", "causing", "causal", "causally", "causative",
+    "leads to", "lead to", "led to", "leading to",
+    "results in", "result in", "resulted in", "resulting in", "as a result of",
+    "due to", "because", "owing to", "attributable to", "responsible for",
+    "induce", "induces", "induced", "inducing", "trigger", "triggers", "triggered", "triggering",
+    "drives", "drove", "driven by", "gives rise to", "give rise to", "gave rise to"
+  ],
+  "correlational": [
+    "correlate", "correlates", "correlated", "correlation", "correlations", "correlating",
+    "associated", "association", "associations", "associate", "associates",
+    "linked to", "linked with", "link between", "relationship between", "co-occur", "co-occurs", "co-occurred",
+    "covary", "covaries", "covaried", "covariance", "tracks with", "coincides with", "coincided with"
+  ],
+  "negations": [
+    "not", "no", "never", "none", "neither", "nobody", "nothing", "nowhere", "cannot", "without",
+    "unable", "lack", "lacks", "lacked", "lacking", "absence", "absent", "fail to", "fails to", "failed to"
+  ],
+  "number_words": [
+    "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
+    "twenty", "thirty", "forty", "fifty", "hundred", "thousand", "million", "billion", "half", "twice",
+    "double", "triple", "dozen", "single", "first", "second", "third", "fourth", "fifth"
+  ],
+  "stopwords": [
+    "a", "an", "the", "and", "or", "but", "of", "in", "on", "at", "to", "for", "by", "with", "from", "as", "is", "are",
+    "was", "were", "be", "been", "being", "this", "that", "these", "those", "it", "its", "we", "our", "they", "their",
+    "which", "who", "whom", "whose", "than", "then", "also", "into", "over", "under", "between", "within", "such", "can",
+    "has", "have", "had", "do", "does", "did", "there", "here", "so", "very", "more", "most", "less", "both", "each",
+    "per", "via", "while", "where", "when", "whereas", "however", "thus", "therefore", "hence", "further", "furthermore",
+    "moreover", "additionally", "addition", "note", "noting", "worth", "important", "particular", "particularly"
+  ],
+  "uppercase_words_not_acronyms": ["NOT", "NO", "AND", "OR", "THE", "ALL", "NONE", "NEVER", "BUT", "IF", "IS", "IT", "WE", "A", "I"]
+}

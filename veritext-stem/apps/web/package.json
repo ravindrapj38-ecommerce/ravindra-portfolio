@@ -1,0 +1,37 @@
+{
+  "name": "web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "sync-shared": "node scripts/sync-shared.mjs",
+    "build:preview": "node scripts/build-preview.mjs",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "next": "15.5.28",
+    "react": "19.1.10",
+    "react-dom": "19.1.10"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@playwright/test": "1.56.1",
+    "@tailwindcss/cli": "4.3.3",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "esbuild": "0.28.2",
+    "eslint": "9.39.5",
+    "eslint-config-next": "15.5.28",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "yaml": "2.9.1"
+  }
+}

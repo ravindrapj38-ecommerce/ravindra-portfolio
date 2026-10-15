@@ -1,0 +1,55 @@
+[project]
+name = "veritext-engine"
+version = "0.1.0"
+description = "Veritext STEM engine: lock invariants, rewrite, verify sentence by sentence, report."
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.32,<1",
+  "pydantic>=2.9,<3",
+  "pydantic-settings>=2.6,<3",
+  "pyyaml>=6,<7",
+]
+
+[project.optional-dependencies]
+anthropic = ["anthropic>=0.40"]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "hypothesis>=6.115",
+  "httpx>=0.27",
+  "ruff>=0.7",
+  "mypy>=1.13",
+  "types-PyYAML>=6",
+]
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["veritext_engine"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.mypy]
+strict = true
+files = ["veritext_engine", "tests"]
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["anthropic", "anthropic.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["RUF012"]

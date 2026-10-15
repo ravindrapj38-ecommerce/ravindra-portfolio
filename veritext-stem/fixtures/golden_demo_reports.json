@@ -1,0 +1,565 @@
+{
+ "cases": [
+  {
+   "id": "sample",
+   "text": "It is worth noting that the thermal conductivity of the graphene films was measured using the optothermal Raman method at 300 K. We delve into the results, which suggest that the conductivity may decrease to 1800 ± 150 W m^-1 K^-1 when the defect density exceeds 10^11 cm^-2 [12]. Furthermore, a large number of samples exhibited a red shift of the G peak of approximately 2.4 cm^-1, which is associated with tensile strain rather than doping (Lee et al., 2019). The defects did not alter the 2D peak symmetry, and in order to rule out laser heating, the incident power was kept below 1.5 mW. The fitted heat-transfer model is $\\kappa = \\frac{\\alpha P}{2\\pi h \\, \\Delta T}$, and the code used for the fit is available at https://doi.org/10.5281/zenodo.1234567.\n",
+   "report": {
+    "format": "text",
+    "discipline": "physics",
+    "register": "journal",
+    "provider": "demo",
+    "provider_label": "Demo rewriter (no AI model connected; phrase-level edits only)",
+    "output": "The thermal conductivity of the graphene films was measured using the optothermal Raman method at 300 K. We examine the results, which suggest that the conductivity may decrease to 1800 ± 150 W m^-1 K^-1 when the defect density exceeds 10^11 cm^-2 [12]. Many samples showed a red shift of the G peak of approximately 2.4 cm^-1, which is associated with tensile strain rather than doping (Lee et al., 2019). The defects did not alter the 2D peak symmetry, and to rule out laser heating, the incident power was kept below 1.5 mW. The fitted heat-transfer model is $\\kappa = \\frac{\\alpha P}{2\\pi h \\, \\Delta T}$, and the code used for the fit is available at https://doi.org/10.5281/zenodo.1234567.\n",
+    "sentences": [
+     {
+      "id": 0,
+      "block": 0,
+      "original": "It is worth noting that the thermal conductivity of the graphene films was measured using the optothermal Raman method at 300 K.",
+      "final": "The thermal conductivity of the graphene films was measured using the optothermal Raman method at 300 K.",
+      "status": "verified",
+      "attempts": 1,
+      "issues": [],
+      "diff": [
+       {
+        "op": "delete",
+        "text": "It is worth noting that the"
+       },
+       {
+        "op": "insert",
+        "text": "The"
+       },
+       {
+        "op": "equal",
+        "text": " thermal conductivity of the graphene films was measured using the optothermal Raman method at 300 K."
+       }
+      ]
+     },
+     {
+      "id": 1,
+      "block": 0,
+      "original": "We delve into the results, which suggest that the conductivity may decrease to 1800 ± 150 W m^-1 K^-1 when the defect density exceeds 10^11 cm^-2 [12].",
+      "final": "We examine the results, which suggest that the conductivity may decrease to 1800 ± 150 W m^-1 K^-1 when the defect density exceeds 10^11 cm^-2 [12].",
+      "status": "verified",
+      "attempts": 1,
+      "issues": [],
+      "diff": [
+       {
+        "op": "equal",
+        "text": "We "
+       },
+       {
+        "op": "delete",
+        "text": "delve into"
+       },
+       {
+        "op": "insert",
+        "text": "examine"
+       },
+       {
+        "op": "equal",
+        "text": " the results, which suggest that the conductivity may decrease to 1800 ± 150 W m^-1 K^-1 when the defect density exceeds 10^11 cm^-2 [12]."
+       }
+      ]
+     },
+     {
+      "id": 2,
+      "block": 0,
+      "original": "Furthermore, a large number of samples exhibited a red shift of the G peak of approximately 2.4 cm^-1, which is associated with tensile strain rather than doping (Lee et al., 2019).",
+      "final": "Many samples showed a red shift of the G peak of approximately 2.4 cm^-1, which is associated with tensile strain rather than doping (Lee et al., 2019).",
+      "status": "verified",
+      "attempts": 1,
+      "issues": [],
+      "diff": [
+       {
+        "op": "delete",
+        "text": "Furthermore, a large number of"
+       },
+       {
+        "op": "insert",
+        "text": "Many"
+       },
+       {
+        "op": "equal",
+        "text": " samples "
+       },
+       {
+        "op": "delete",
+        "text": "exhibited"
+       },
+       {
+        "op": "insert",
+        "text": "showed"
+       },
+       {
+        "op": "equal",
+        "text": " a red shift of the G peak of approximately 2.4 cm^-1, which is associated with tensile strain rather than doping (Lee et al., 2019)."
+       }
+      ]
+     },
+     {
+      "id": 3,
+      "block": 0,
+      "original": "The defects did not alter the 2D peak symmetry, and in order to rule out laser heating, the incident power was kept below 1.5 mW.",
+      "final": "The defects did not alter the 2D peak symmetry, and to rule out laser heating, the incident power was kept below 1.5 mW.",
+      "status": "verified",
+      "attempts": 1,
+      "issues": [],
+      "diff": [
+       {
+        "op": "equal",
+        "text": "The defects did not alter the 2D peak symmetry, and "
+       },
+       {
+        "op": "delete",
+        "text": "in order "
+       },
+       {
+        "op": "equal",
+        "text": "to rule out laser heating, the incident power was kept below 1.5 mW."
+       }
+      ]
+     },
+     {
+      "id": 4,
+      "block": 0,
+      "original": "The fitted heat-transfer model is $\\kappa = \\frac{\\alpha P}{2\\pi h \\, \\Delta T}$, and the code used for the fit is available at https://doi.org/10.5281/zenodo.1234567.",
+      "final": "The fitted heat-transfer model is $\\kappa = \\frac{\\alpha P}{2\\pi h \\, \\Delta T}$, and the code used for the fit is available at https://doi.org/10.5281/zenodo.1234567.",
+      "status": "verified",
+      "attempts": 1,
+      "issues": [],
+      "diff": [
+       {
+        "op": "equal",
+        "text": "The fitted heat-transfer model is $\\kappa = \\frac{\\alpha P}{2\\pi h \\, \\Delta T}$, and the code used for the fit is available at https://doi.org/10.5281/zenodo.1234567."
+       }
+      ]
+     }
+    ],
+    "counts": {
+     "verified": 5,
+     "kept_original": 0,
+     "needs_review": 0
+    },
+    "fidelity_score": 100,
+    "rewritten_share": 81,
+    "locked": [
+     {
+      "key": "N1",
+      "kind": "N",
+      "label": "number/unit",
+      "text": "300 K"
+     },
+     {
+      "key": "N2",
+      "kind": "N",
+      "label": "number/unit",
+      "text": "1800 ± 150 W m^-1 K^-1"
+     },
+     {
+      "key": "N3",
+      "kind": "N",
+      "label": "number/unit",
+      "text": "10^11 cm^-2"
+     },
+     {
+      "key": "C1",
+      "kind": "C",
+      "label": "citation",
+      "text": "[12]"
+     },
+     {
+      "key": "N4",
+      "kind": "N",
+      "label": "number/unit",
+      "text": "2.4 cm^-1"
+     },
+     {
+      "key": "C2",
+      "kind": "C",
+      "label": "citation",
+      "text": "(Lee et al., 2019)"
+     },
+     {
+      "key": "N5",
+      "kind": "N",
+      "label": "number/unit",
+      "text": "2D"
+     },
+     {
+      "key": "N6",
+      "kind": "N",
+      "label": "number/unit",
+      "text": "1.5 mW"
+     },
+     {
+      "key": "M1",
+      "kind": "M",
+      "label": "equation",
+      "text": "$\\kappa = \\frac{\\alpha P}{2\\pi h \\, \\Delta T}$"
+     },
+     {
+      "key": "U1",
+      "kind": "U",
+      "label": "URL/DOI",
+      "text": "https://doi.org/10.5281/zenodo.1234567"
+     }
+    ],
+    "lint_input": [
+     {
+      "phrase": "it is worth noting that",
+      "text": "It is worth noting that",
+      "start": 0,
+      "end": 23,
+      "suggestion": "drop it and state the point"
+     },
+     {
+      "phrase": "delve",
+      "text": "delve",
+      "start": 132,
+      "end": 137,
+      "suggestion": "examine, study, look at"
+     },
+     {
+      "phrase": "furthermore",
+      "text": "Furthermore",
+      "start": 281,
+      "end": 292,
+      "suggestion": "vary or drop the connective"
+     }
+    ],
+    "lint_output": [],
+    "round_trip_ok": true,
+    "warnings": []
+   }
+  },
+  {
+   "id": "markdown-doc",
+   "text": "# Results\n\nIn order to test the model, we utilize a large number of runs [4]. It is important to note that accuracy did not improve beyond 92.1% (Wu et al., 2021).\n\n- Furthermore, the loss is associated with batch size.\n- Training used `torch.compile`.\n\n| a | b |\n|---|---|\n\n```python\nprint('x')\n```\n",
+   "report": {
+    "format": "markdown",
+    "discipline": "physics",
+    "register": "journal",
+    "provider": "demo",
+    "provider_label": "Demo rewriter (no AI model connected; phrase-level edits only)",
+    "output": "# Results\n\nTo test the model, we use many runs [4]. Accuracy did not improve beyond 92.1% (Wu et al., 2021).\n\n- The loss is associated with batch size.\n- Training used `torch.compile`.\n\n| a | b |\n|---|---|\n\n```python\nprint('x')\n```\n",
+    "sentences": [
+     {
+      "id": 0,
+      "block": 0,
+      "original": "In order to test the model, we utilize a large number of runs [4].",
+      "final": "To test the model, we use many runs [4].",
+      "status": "verified",
+      "attempts": 1,
+      "issues": [],
+      "diff": [
+       {
+        "op": "delete",
+        "text": "In order to"
+       },
+       {
+        "op": "insert",
+        "text": "To"
+       },
+       {
+        "op": "equal",
+        "text": " test the model, we "
+       },
+       {
+        "op": "delete",
+        "text": "utilize a large number"
+       },
+       {
+        "op": "insert",
+        "text": "use"
+       },
+       {
+        "op": "equal",
+        "text": " "
+       },
+       {
+        "op": "delete",
+        "text": "of"
+       },
+       {
+        "op": "insert",
+        "text": "many"
+       },
+       {
+        "op": "equal",
+        "text": " runs [4]."
+       }
+      ]
+     },
+     {
+      "id": 1,
+      "block": 0,
+      "original": "It is important to note that accuracy did not improve beyond 92.1% (Wu et al., 2021).",
+      "final": "Accuracy did not improve beyond 92.1% (Wu et al., 2021).",
+      "status": "verified",
+      "attempts": 1,
+      "issues": [],
+      "diff": [
+       {
+        "op": "delete",
+        "text": "It is important to note that accuracy"
+       },
+       {
+        "op": "insert",
+        "text": "Accuracy"
+       },
+       {
+        "op": "equal",
+        "text": " did not improve beyond 92.1% (Wu et al., 2021)."
+       }
+      ]
+     },
+     {
+      "id": 2,
+      "block": 1,
+      "original": "- Furthermore, the loss is associated with batch size.",
+      "final": "- The loss is associated with batch size.",
+      "status": "verified",
+      "attempts": 1,
+      "issues": [],
+      "diff": [
+       {
+        "op": "equal",
+        "text": "- "
+       },
+       {
+        "op": "delete",
+        "text": "Furthermore, the"
+       },
+       {
+        "op": "insert",
+        "text": "The"
+       },
+       {
+        "op": "equal",
+        "text": " loss is associated with batch size."
+       }
+      ]
+     }
+    ],
+    "counts": {
+     "verified": 3,
+     "kept_original": 0,
+     "needs_review": 0
+    },
+    "fidelity_score": 100,
+    "rewritten_share": 100,
+    "locked": [
+     {
+      "key": "K1",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "# "
+     },
+     {
+      "key": "C1",
+      "kind": "C",
+      "label": "citation",
+      "text": "[4]"
+     },
+     {
+      "key": "N1",
+      "kind": "N",
+      "label": "number/unit",
+      "text": "92.1%"
+     },
+     {
+      "key": "C2",
+      "kind": "C",
+      "label": "citation",
+      "text": "(Wu et al., 2021)"
+     },
+     {
+      "key": "K2",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "- "
+     },
+     {
+      "key": "K3",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "- "
+     },
+     {
+      "key": "K4",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "`torch.compile`"
+     },
+     {
+      "key": "K5",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "```python\nprint('x')\n```"
+     }
+    ],
+    "lint_input": [
+     {
+      "phrase": "it is important to note that",
+      "text": "It is important to note that",
+      "start": 78,
+      "end": 106,
+      "suggestion": "drop it and state the point"
+     },
+     {
+      "phrase": "furthermore",
+      "text": "Furthermore",
+      "start": 167,
+      "end": 178,
+      "suggestion": "vary or drop the connective"
+     }
+    ],
+    "lint_output": [],
+    "round_trip_ok": true,
+    "warnings": []
+   }
+  },
+  {
+   "id": "latex-doc",
+   "text": "\\documentclass{article}\n\\begin{document}\n\\section{Methods}\nPrior to analysis, samples were stored at $-80$~\\textdegree C. Subsequently, NaCl (0.9\\%) was added in order to stabilise BRCA1 expression \\cite{smith2020}.\n\\begin{equation}\nE = mc^2\n\\end{equation}\n\\end{document}\n",
+   "report": {
+    "format": "latex",
+    "discipline": "physics",
+    "register": "journal",
+    "provider": "demo",
+    "provider_label": "Demo rewriter (no AI model connected; phrase-level edits only)",
+    "output": "\\documentclass{article}\n\\begin{document}\n\\section{Methods}\nBefore analysis, samples were stored at $-80$~\\textdegree C. Then NaCl (0.9\\%) was added to stabilise BRCA1 expression \\cite{smith2020}.\n\\begin{equation}\nE = mc^2\n\\end{equation}\n\\end{document}\n",
+    "sentences": [
+     {
+      "id": 0,
+      "block": 0,
+      "original": "Prior to analysis, samples were stored at $-80$~\\textdegree C. Subsequently, NaCl (0.9\\%) was added in order to stabilise BRCA1 expression \\cite{smith2020}.",
+      "final": "Before analysis, samples were stored at $-80$~\\textdegree C. Then NaCl (0.9\\%) was added to stabilise BRCA1 expression \\cite{smith2020}.",
+      "status": "verified",
+      "attempts": 1,
+      "issues": [],
+      "diff": [
+       {
+        "op": "delete",
+        "text": "Prior to"
+       },
+       {
+        "op": "insert",
+        "text": "Before"
+       },
+       {
+        "op": "equal",
+        "text": " analysis, samples were stored at $-80$~\\textdegree C. "
+       },
+       {
+        "op": "delete",
+        "text": "Subsequently,"
+       },
+       {
+        "op": "insert",
+        "text": "Then"
+       },
+       {
+        "op": "equal",
+        "text": " NaCl (0.9\\%) was added "
+       },
+       {
+        "op": "delete",
+        "text": "in order "
+       },
+       {
+        "op": "equal",
+        "text": "to stabilise BRCA1 expression \\cite{smith2020}."
+       }
+      ]
+     }
+    ],
+    "counts": {
+     "verified": 1,
+     "kept_original": 0,
+     "needs_review": 0
+    },
+    "fidelity_score": 100,
+    "rewritten_share": 100,
+    "locked": [
+     {
+      "key": "K1",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "\\documentclass{article}"
+     },
+     {
+      "key": "K2",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "\\begin{document}"
+     },
+     {
+      "key": "K3",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "\\section{Methods}"
+     },
+     {
+      "key": "M1",
+      "kind": "M",
+      "label": "equation",
+      "text": "$-80$"
+     },
+     {
+      "key": "K4",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "\\textdegree"
+     },
+     {
+      "key": "E1",
+      "kind": "E",
+      "label": "chemical/gene/species name",
+      "text": "NaCl"
+     },
+     {
+      "key": "N1",
+      "kind": "N",
+      "label": "number/unit",
+      "text": "0.9"
+     },
+     {
+      "key": "K5",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "\\%"
+     },
+     {
+      "key": "E2",
+      "kind": "E",
+      "label": "chemical/gene/species name",
+      "text": "BRCA1"
+     },
+     {
+      "key": "C1",
+      "kind": "C",
+      "label": "citation",
+      "text": "\\cite{smith2020}"
+     },
+     {
+      "key": "M2",
+      "kind": "M",
+      "label": "equation",
+      "text": "\\begin{equation}\nE = mc^2\n\\end{equation}"
+     },
+     {
+      "key": "K6",
+      "kind": "K",
+      "label": "code/markup",
+      "text": "\\end{document}"
+     }
+    ],
+    "lint_input": [],
+    "lint_output": [],
+    "round_trip_ok": true,
+    "warnings": []
+   }
+  }
+ ]
+}

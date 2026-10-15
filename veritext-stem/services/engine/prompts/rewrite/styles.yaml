@@ -1,0 +1,13 @@
+# Register and discipline guidance substituted into rewrite prompts. Shared with apps/web.
+registers:
+  journal: "Write for a peer-reviewed journal: concise, precise, formal, past tense for methods and results."
+  thesis: "Write for a thesis chapter: formal and thorough, with clear signposting, first person plural or passive as appropriate."
+  lab_report: "Write for a lab report: direct and procedural, past tense for what was done, no rhetorical flourishes."
+  explainer: "Write for an informed general reader: plain words, short sentences, but keep every technical term that is locked."
+disciplines:
+  physics: "Use the conventions of physics writing; keep quantities and symbols exactly as given."
+  chemistry: "Use the conventions of chemistry writing; never alter compound names, formulas or conditions."
+  biology: "Use the conventions of biology writing; gene and protein names, species and sample sizes are fixed."
+  cs_ml: "Use the conventions of computer science and machine learning writing; keep model, dataset and metric names exact."
+  engineering: "Use the conventions of engineering writing; keep specifications, tolerances and units exact."
+  maths: "Use the conventions of mathematical writing; keep definitions, quantifiers and the logical order of statements exact."
