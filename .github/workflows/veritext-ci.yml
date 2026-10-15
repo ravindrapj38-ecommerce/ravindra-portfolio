@@ -1,0 +1,43 @@
+name: veritext-ci
+
+on:
+  pull_request:
+    paths: ["veritext-stem/**", ".github/workflows/veritext-ci.yml"]
+  push:
+    branches: [main]
+    paths: ["veritext-stem/**", ".github/workflows/veritext-ci.yml"]
+
+defaults:
+  run:
+    working-directory: veritext-stem
+
+jobs:
+  engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync
+        working-directory: veritext-stem/services/engine
+      - name: Lint, types, tests
+        working-directory: veritext-stem/services/engine
+        run: uv run ruff check . && uv run ruff format --check . && uv run mypy && uv run pytest -q
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: veritext-stem/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: veritext-stem/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r lint && pnpm -r typecheck && pnpm -r test
+      - run: pnpm --filter web build
+      - run: pnpm --filter web build:preview
+      - run: pnpm --filter web exec playwright install --with-deps chromium
+      - run: pnpm --filter web e2e

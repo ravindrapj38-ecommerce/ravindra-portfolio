@@ -1,0 +1,6 @@
+cases:
+  - id: restore-hedge
+    input: ["The data may indicate a shift."]
+    feedback: [["Certainty changed from hedged ('may', 'indicate') to boosted ('prove')."]]
+    expect:
+      hedge_class: hedged

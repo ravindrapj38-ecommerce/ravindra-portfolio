@@ -1,0 +1,9 @@
+cases:
+  - id: hedge-and-placeholder
+    discipline: physics
+    register: journal
+    input: ["It is worth noting that the conductivity may decrease to ⟦N1⟧ when defects exceed ⟦N2⟧ ⟦C1⟧."]
+    expect:
+      placeholders_preserved: true
+      hedge_class: hedged
+      no_phrases: ["it is worth noting"]

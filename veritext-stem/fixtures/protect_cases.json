@@ -1,0 +1,23 @@
+{
+  "_comment": "Shared by engine (pytest) and web core (vitest). 'locked' lists texts that must each be locked as one item; 'not_locked' lists texts that must stay rewritable.",
+  "cases": [
+    {"id": "units", "format": "text", "input": "A 5 mg/mL solution at 25 °C and pH 7.4 was stirred for 3 h at 1800 ± 150 W m^-1 K^-1 and 3.2 × 10^8 m s-1.",
+     "locked": ["5 mg/mL", "25 °C", "pH 7.4", "3 h", "1800 ± 150 W m^-1 K^-1", "3.2 × 10^8 m s-1"], "not_locked": ["solution", "stirred"]},
+    {"id": "percent-and-counts", "format": "markdown", "input": "Of 1,200 cells, 50% survived after 10^11 cm^-2 exposure in 2D films.",
+     "locked": ["1,200", "50%", "10^11 cm^-2", "2D"], "not_locked": ["survived"]},
+    {"id": "chemistry", "format": "text", "input": "Na+ and Ca2+ ions in H2O with NaCl and Fe2O3 were analysed.",
+     "locked": ["Na+", "Ca2+", "H2O", "NaCl", "Fe2O3"], "not_locked": ["ions", "analysed"]},
+    {"id": "genes", "format": "text", "input": "BRCA1, TP53, p53, IL-6, SARS-CoV-2 and Cas9 were sequenced in E. coli by PCR.",
+     "locked": ["BRCA1", "TP53", "p53", "IL-6", "SARS-CoV-2", "Cas9", "E. coli", "PCR"], "not_locked": ["sequenced"]},
+    {"id": "citations", "format": "latex", "input": "As \\citet{smith2020} and Lee et al. (2019) showed [3, 5–7], the effect holds (Smith and Jones, 2020; Wu, 2021) \\cite[p.~4]{wu2021}.",
+     "locked": ["\\citet{smith2020}", "Lee et al. (2019)", "[3, 5–7]", "(Smith and Jones, 2020; Wu, 2021)", "\\cite[p.~4]{wu2021}"], "not_locked": ["effect holds"]},
+    {"id": "math", "format": "latex", "input": "The model $E = mc^2$ and \\(a+b\\) give\n\\begin{equation}\nF = ma\n\\end{equation}\nand $$x^2$$ and \\[y\\].",
+     "locked": ["$E = mc^2$", "\\(a+b\\)", "\\begin{equation}\nF = ma\n\\end{equation}", "$$x^2$$", "\\[y\\]"], "not_locked": ["model"]},
+    {"id": "code-urls-dois", "format": "markdown", "input": "Run `numpy.linalg.eig` (see https://example.org/a_b?x=1) or doi:10.1000/xyz123.\n\n```python\nprint(1)\n```\n",
+     "locked": ["`numpy.linalg.eig`", "https://example.org/a_b?x=1", "doi:10.1000/xyz123", "```python\nprint(1)\n```"], "not_locked": ["Run"]},
+    {"id": "refs", "format": "latex", "input": "As shown in Fig. 2 and Eq. (3), Table 1 and \\ref{sec:intro} agree.",
+     "locked": ["Fig. 2", "Eq. (3)", "Table 1", "\\ref{sec:intro}"], "not_locked": ["agree"]},
+    {"id": "reserved-brackets", "format": "text", "input": "Odd input with ⟦M1⟧ and ⟧ already in it.",
+     "locked": ["⟦", "⟧"], "not_locked": ["Odd input"]}
+  ]
+}

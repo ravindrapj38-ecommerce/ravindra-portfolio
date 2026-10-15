@@ -1,0 +1,9 @@
+packages:
+  - "apps/*"
+onlyBuiltDependencies:
+  - esbuild
+  - "@tailwindcss/oxide"
+  - sharp
+  - unrs-resolver
+publicHoistPattern:
+  - "*eslint*"
