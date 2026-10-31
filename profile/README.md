@@ -23,20 +23,6 @@ system, find out why it fails, fix the root cause, and write the process down so
 
 ---
 
-## 🎯 Roles I'm targeting
-
-| Track | Roles |
-|---|---|
-| 🛒 **eCommerce & Marketplace** (core) | eCommerce Specialist · Marketplace Operations Specialist · Catalog Operations · Marketplace Manager |
-| 🧭 **Product** | Product Operations Specialist · Product Analyst · Associate Product Manager · Product Manager |
-| 📈 **Marketing & Growth** | Marketing Operations · Digital Marketing · SEO · Growth Operations |
-| 🤖 **AI & Data** | AI Operations · LLM Evaluation · AI Red-Teaming · Benchmark Creation · Data Operations |
-
-These are one profile, not four: all of them reward catalog and search knowledge, funnel analysis, root
-cause analysis and clear process documentation.
-
----
-
 ## 💼 Experience
 
 ### AI Research Task Author · BrowseComp (Meta) · Turing · Remote
