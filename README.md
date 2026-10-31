@@ -6,11 +6,12 @@
 
 This repository holds my portfolio site and the projects I've built.
 
-| Path | What it is |
+| Project | What it is |
 |---|---|
 | [`index.html`](index.html) | Portfolio site: 4 years of IndiaMART marketplace work (catalog, taxonomy, search relevance, SEO, KPI reporting), buyer-experience case studies, and AI evaluation work on Turing's BrowseComp (Meta) project |
-| [`veritext-stem/`](veritext-stem) | **Veritext STEM**: Python (FastAPI) + Next.js app that rewrites AI-drafted STEM text and checks, sentence by sentence, that the meaning is unchanged. CI runs lint, type checks and tests |
+| Shopify PDP recreation | Zulay Kitchen–inspired Shopify product page (Liquid, HTML, CSS, JS): [video walkthrough](https://drive.google.com/file/d/1Hyt5uHx0JGKhkLdEvvsPPtsUyEpdkV7Z/view?usp=sharing) · [Liquid code](https://drive.google.com/file/d/1qN0BKNaCdAu8bWVB_POyx54HlIbpvzmf/view?usp=sharing) |
 | [`glidecast/`](glidecast) | **Glidecast**: browser screen recorder SaaS with auto-zoom, free/Pro pricing, license-key checkout and a launch plan |
+| Glidecast waitlist page | Pre-launch campaign landing page built with Lovable: [live page](https://preview--glidecast-zoom-preview.lovable.app/) |
 | [`profile/README.md`](profile/README.md) | Source for my GitHub profile README |
 
 ## Highlights
