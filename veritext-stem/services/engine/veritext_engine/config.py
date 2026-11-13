@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     model_rewrite: str = "claude-opus-5-5"
     model_judge: str = "claude-sonnet-5-5"
     model_classify: str = "claude-haiku-5-5"
+    # Thinking depth for rewrites (thinking cannot be switched off on the current models).
+    effort: Literal["low", "medium", "high"] = "low"
     max_repair_attempts: int = 3
     max_input_chars: int = 60_000
     shared_dir: Path = _DEFAULT_SHARED

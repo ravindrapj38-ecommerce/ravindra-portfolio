@@ -7,4 +7,4 @@ engine-check:
 
 web-check:
 	pnpm -r lint && pnpm -r typecheck && pnpm -r test
-	pnpm --filter web build:preview && pnpm --filter web e2e
+	pnpm --filter web build && pnpm --filter web build:preview && pnpm --filter web e2e

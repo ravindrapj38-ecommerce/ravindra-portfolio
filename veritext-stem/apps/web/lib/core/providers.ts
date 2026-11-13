@@ -77,13 +77,7 @@ export function claudeSampleProvider(sample: SampleFn): RewriteProvider {
     name: "claude",
     label: "Claude (through your Claude account)",
     async rewrite(req) {
-      const prompt =
-        renderRewriteSystem(req.discipline, req.register).replace(
-          "Return your answer with the submit_rewrite tool.",
-          'Reply with only a JSON object {"sentences": [...]}: one string per input sentence, in order.',
-        ) +
-        "\n\n" +
-        buildUserMessage(req);
+      const prompt = renderRewriteSystem(req.discipline, req.register) + "\n\n" + buildUserMessage(req);
       const value = await sample.json<{ sentences?: unknown }>(prompt, { modelTier: "default" });
       const out = Array.isArray(value?.sentences) ? value.sentences : Array.isArray(value) ? value : [];
       return (out as unknown[]).map((s) => String(s));

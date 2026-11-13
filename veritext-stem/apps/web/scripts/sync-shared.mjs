@@ -1,7 +1,7 @@
 // Copies the data the TypeScript core shares with the Python engine into lib/core/generated/.
 // Sources: veritext-stem/shared/*.json and services/engine/prompts/. Run after editing either;
 // tests/shared-sync.test.ts fails if the generated copy is stale.
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
@@ -13,7 +13,12 @@ const out = join(here, "..", "lib", "core", "generated");
 export function buildShared() {
   const read = (p) => readFileSync(join(root, p), "utf8");
   const json = (p) => JSON.parse(read(p));
-  const prompt = (name) => read(`services/engine/prompts/${name}/v1.md`).split("---").slice(2).join("---").trim();
+  // The latest version of each prompt, like the engine's load_prompt().
+  const prompt = (name) => {
+    const dir = `services/engine/prompts/${name}`;
+    const latest = Math.max(...readdirSync(join(root, dir)).map((f) => Number(/^v(\d+)\.md$/.exec(f)?.[1] ?? 0)));
+    return read(`${dir}/v${latest}.md`).split("---").slice(2).join("---").trim();
+  };
   return {
     lexicons: json("shared/lexicons.json"),
     lockPatterns: json("shared/lock_patterns.json").rules,

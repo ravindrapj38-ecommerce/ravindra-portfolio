@@ -12,6 +12,8 @@ export interface RunOptions {
   register?: Register;
   format?: Format | null;
   maxAttempts?: number;
+  /** Paragraphs rewritten in parallel. Results do not depend on it. */
+  concurrency?: number;
   onProgress?: (done: number, total: number) => void;
 }
 
@@ -58,7 +60,7 @@ export async function runPipeline(text: string, provider: RewriteProvider, opts:
 
   let doneBlocks = 0;
   opts.onProgress?.(0, blocks.size);
-  for (const ids of blocks.values()) {
+  const runBlock = async (ids: number[]) => {
     const context = ids.map((i) => segs[i]!.text).join(" ");
     let pending = [...ids];
     const feedback = new Map<number, string[]>();
@@ -94,7 +96,12 @@ export async function runPipeline(text: string, provider: RewriteProvider, opts:
       pending = still;
     }
     opts.onProgress?.(++doneBlocks, blocks.size);
-  }
+  };
+  const queue = [...blocks.values()];
+  const workers = Array.from({ length: Math.max(1, Math.min(opts.concurrency ?? 1, queue.length)) }, async () => {
+    for (let ids = queue.shift(); ids; ids = queue.shift()) await runBlock(ids);
+  });
+  await Promise.all(workers);
 
   const results: SentenceResult[] = [];
   const outParts: string[] = [];

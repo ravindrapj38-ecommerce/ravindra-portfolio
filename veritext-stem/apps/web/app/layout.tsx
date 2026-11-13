@@ -2,10 +2,21 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 
+const url = (process.env.VERITEXT_SITE_URL ?? "").trim() || "http://localhost:3000";
+const description =
+  "Rewrite AI-drafted or second-language STEM text into natural expert prose. Equations, numbers and citations are locked, every sentence is checked for changed meaning, and you get a fidelity report.";
+
 export const metadata: Metadata = {
-  title: "Veritext STEM",
-  description: "Rewrite AI-drafted STEM text into natural expert prose, with every sentence checked for meaning.",
+  metadataBase: new URL(url),
+  title: { default: "Veritext STEM: rewriting for STEM papers with verified meaning", template: "%s · Veritext STEM" },
+  description,
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", siteName: "Veritext STEM", title: "Veritext STEM", description, url: "/" },
+  twitter: { card: "summary", title: "Veritext STEM", description },
 };
+
+// Pages read checkout links and contact details from the environment at request time.
+export const dynamic = "force-dynamic";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

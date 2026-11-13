@@ -56,15 +56,23 @@ def demo_rewrite(sentence: str) -> str:
     return out
 
 
-SUBMIT_TOOL: dict[str, Any] = {
-    "name": "submit_rewrite",
-    "description": "Return the rewritten sentences, one per input sentence, in order.",
-    "input_schema": {
-        "type": "object",
-        "properties": {"sentences": {"type": "array", "items": {"type": "string"}}},
-        "required": ["sentences"],
-    },
+# Structured output: the reply is JSON constrained by this schema. (Forced ``tool_choice`` is rejected
+# by the current model family, so the rewrite is not returned through a tool call.)
+OUTPUT_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "properties": {"sentences": {"type": "array", "items": {"type": "string"}}},
+    "required": ["sentences"],
+    "additionalProperties": False,
 }
+
+
+def parse_sentences(text: str) -> list[str]:
+    try:
+        value = json.loads(text)
+    except ValueError:
+        return []
+    sentences = value.get("sentences") if isinstance(value, dict) else None
+    return [str(s) for s in sentences] if isinstance(sentences, list) else []
 
 
 def build_user_message(req: RewriteRequest) -> str:
@@ -100,7 +108,7 @@ class AnthropicProvider:
     def rewrite(self, req: RewriteRequest) -> list[str]:
         resp = self.client.messages.create(
             model=self.settings.model_rewrite,
-            max_tokens=4096,
+            max_tokens=16000,
             system=[
                 {
                     "type": "text",
@@ -108,14 +116,18 @@ class AnthropicProvider:
                     "cache_control": {"type": "ephemeral"},
                 }
             ],
-            tools=[SUBMIT_TOOL],
-            tool_choice={"type": "tool", "name": "submit_rewrite"},
+            output_config={
+                "effort": self.settings.effort,
+                "format": {"type": "json_schema", "schema": OUTPUT_SCHEMA},
+            },
             messages=[{"role": "user", "content": build_user_message(req)}],
         )
+        # A refusal or a cut-off reply yields no sentences; the pipeline then keeps the originals.
+        if getattr(resp, "stop_reason", None) != "end_turn":
+            return []
         for block in resp.content:
-            if getattr(block, "type", None) == "tool_use":
-                sentences = block.input.get("sentences", [])
-                return [str(s) for s in sentences]
+            if getattr(block, "type", None) == "text":
+                return parse_sentences(block.text)
         return []
 
 

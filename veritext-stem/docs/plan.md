@@ -7,9 +7,36 @@ Decisions taken along the way are recorded in [`decisions.md`](decisions.md).
 
 | Milestone | State |
 | --- | --- |
+| Milestone 2 — sellable product (below) | Landed; needs the owner's accounts to go live |
 | Milestone 1 — first working version (below) | Landed on `claude/project-thread-kwo90h`, draft PR open |
 | Phase 0 infra items (Postgres, Redis, MinIO, worker, compose, OTel) | Not started; not needed until jobs and accounts exist |
 | Phases 2–6 | Not started |
+
+## Milestone 2 — a product that can charge (landed)
+
+Goal: someone can find the site, try it, hit a limit, pay, and keep using it, with nothing built
+that this does not need (D-019).
+
+Done:
+- Landing page with a real worked example, pricing, FAQ, legal pages (terms, privacy, refunds).
+- `/app`: account bar with words left, upgrade prompt at each limit, license-key activation.
+- Server-side plans and word metering; Lemon Squeezy license validation and re-checks (D-020–D-022).
+- Claude rewrites inside the web app (official SDK, structured output, cached system prompt,
+  paragraphs in parallel, streamed progress). Engine provider fixed the same way (D-023).
+- Model cost per run and an admin report with cost per 1,000 words (D-024).
+- AI-use statement generator (ICMJE, Nature, IEEE, Elsevier wording), download of the fidelity report.
+- Tests: billing unit tests, and a browser test of the whole paid path against mock services.
+
+Needs the owner (see README "Go-live checklist"): Anthropic key, Lemon Squeezy store and products,
+Upstash database, Vercel deployment, a real purchase in test mode.
+
+Next, in order of expected revenue impact:
+1. Measure real cost per 1,000 words and conversion at each limit; adjust allowances.
+2. Email capture on the Free plan and a "words running low" prompt.
+3. SEO pages for the searches buyers make ("LaTeX paraphrasing tool that keeps equations", "edit
+   thesis English without changing meaning").
+4. Accounts + seats + webhooks for the Lab plan.
+5. LLM-judge entailment (Phase 2), which makes the fidelity claim stronger.
 
 ## Milestone 1 — first working version (landed)
 

@@ -106,3 +106,51 @@ A real deployment (Vercel for web, a container host for the engine) is a later m
 ## D-018 · Engine is a single uv project for now
 D-002's uv workspace waits for the benchmark package. Until then `services/engine` is its own uv
 project, and the web app is the only pnpm workspace member.
+
+## D-019 · Revenue first: one deployable app that can charge (Milestone 2)
+Milestone 1 worked but could not earn: no deployment, no pricing, no checkout, no limits, and the
+web app needed a second service. **Decision:** the Next.js app is the product and deploys alone
+(Vercel). It runs the TypeScript pipeline server-side with the Anthropic SDK, so one deployment and a
+handful of environment variables are enough to sell. The Python engine stays for API/CLI work and
+is used by the web app only when `ENGINE_URL` is set. Infra from the original Phase 0 (Postgres,
+Redis queue, S3, workers) waits until there is revenue that needs it.
+
+## D-020 · Payments: Lemon Squeezy license keys, no user accounts yet
+Supersedes the Stripe + Auth.js plan (D-004) for launch. Lemon Squeezy is a Merchant of Record: it
+handles global sales tax/VAT and pays out to an Indian bank account, which Stripe does not do simply
+for a new seller in India. A purchase issues a license key; the key is the account. The server
+validates it with the License API, checks store and variant, and maps the variant to a plan. Keys
+are re-validated every 6 hours (3-day grace if Lemon Squeezy is unreachable), so cancellations and
+refunds end access without webhooks. Accounts, seats and webhooks come with the Lab plan.
+
+## D-021 · Plans
+Free 1,500 words/month (600 per run, text + Markdown). Researcher $12/month or $96/year: 50,000
+words/month, 10,000 per run, LaTeX, downloads. Thesis pack $29 once: 100,000 words, no expiry, for
+people who will not subscribe. The pack costs more per word than the subscription on purpose. The Lab
+plan ($39/seat) is sold by email until workspaces exist. LaTeX is the main paid gate because the
+people who need it are the people with a paper or thesis to submit.
+
+## D-022 · Metering
+Words = whitespace-separated tokens of the submitted text. Reserved atomically before the run
+(`INCRBY`, then roll back if over), released if the provider failed. Free usage is counted per browser
+(signed anonymous cookie). All free use from one IP address has a separate, higher cap
+(`VERITEXT_FREE_IP_WORDS`, default 15,000/month): high enough that a campus behind one address is not
+locked out, low enough to bound what cookie-clearing can cost. Storage is Upstash Redis over
+REST (serverless-friendly, free tier); an in-memory store is the fallback for development and is
+reported as a launch problem.
+
+## D-023 · Structured output instead of a forced tool call
+`claude-opus-5-5` rejects forced `tool_choice` with a 400, so Milestone 1's Anthropic provider would
+have failed on its first real request. Both providers now use `output_config.format` with a JSON
+schema (rewrite prompt v2), `effort` from config (default `low`), and treat any `stop_reason` other
+than `end_turn` as "no rewrite", which keeps the original sentences. The web provider also enables
+server-side refusal fallback, since biology and chemistry text can trip a safety classifier.
+
+## D-024 · Cost tracking
+Each metered run adds words, tokens and model cost to monthly counters. `/api/admin/stats` (bearer
+token) reports cost per 1,000 words and what a fully used Researcher month costs against its price.
+The estimate before launch is $0.05 to $0.10 per 1,000 words; it is unmeasured until real traffic.
+
+## D-025 · Landing-page example is a real run
+The example on `/` is produced by the pipeline at request time with scripted rewrites, one of them
+deliberately wrong, so the rejection message shown is the checker's own. A test pins the outcome.

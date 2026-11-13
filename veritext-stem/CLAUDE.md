@@ -18,12 +18,17 @@ This project lives in `veritext-stem/` inside a portfolio repo; all paths below 
 CI workflows live at the repo root in `.github/workflows/veritext-*.yml`.
 
 ```
-apps/web/                     Next.js 15 (App Router), TS strict, Tailwind v4
-  components/Workbench.tsx    The whole UI (plain React; also used by the preview build)
+apps/web/                     Next.js 15 (App Router), TS strict, Tailwind v4. THE PRODUCT: deploys alone.
+  app/                        / (landing + pricing), /app (product), /legal/*, /api/*
+  components/Workbench.tsx    Rewrite UI (plain React; also used by the preview build)
+  components/AppWorkbench.tsx Account bar, upgrade prompt, license-key form
+  lib/plans.ts                Plans, prices, limits (one source for UI and server)
+  lib/server/                 Server only: config, session cookies, Lemon Squeezy license check,
+                              usage store, entitlement + word metering, Claude provider, rewrite handler
   lib/core/                   TypeScript port of the pipeline (D-013); generated/ is synced from shared/
   preview/, scripts/          Single-file preview build (D-017), sync-shared script
-  e2e/, tests/                Playwright smoke, Vitest (shared fixtures + engine parity)
-services/engine/              Python FastAPI engine (uv project, D-018)
+  e2e/, tests/                Playwright (paid path against mock services), Vitest (billing, parity)
+services/engine/              Python FastAPI engine (uv project, D-018); optional for the web app
   veritext_engine/
     pipeline/                 protect, segment, checks, lint, diff, providers, run
     llm/prompts.py            Prompt registry
@@ -67,9 +72,21 @@ LLM access is injected via a `LLMClient` protocol so stages are testable with fa
 8. `report` — fidelity score 0–100, per-sentence status (verified / kept original / needs review),
    reasons, naturalness score.
 
+## Revenue rules (do not break these)
+
+- Every limit is enforced on the server in `apps/web/lib/server/`. The browser only displays.
+- Words are reserved before a run and released if the model could not be reached. Never charge
+  for a run that delivered nothing; never let a run start that the plan cannot pay for.
+- A plan comes only from a license key validated with Lemon Squeezy (store ID + variant ID).
+  Never trust a plan name sent by the browser.
+- No document text in the store, logs or analytics. The store holds counters only.
+- Changing a price or allowance: edit `lib/plans.ts`, the Lemon Squeezy product, and the tests.
+- `tests/billing.test.ts` and `e2e/paid-flow.spec.ts` must pass before any change to this path ships.
+
 ## LLM conventions
 
-- SDK: official `anthropic` Python SDK only. API key from `ANTHROPIC_API_KEY` env var.
+- SDK: the official Anthropic SDKs only (`anthropic` in the engine, `@anthropic-ai/sdk` in the web
+  app). API key from `ANTHROPIC_API_KEY` env var.
 - Model IDs live in `config.py` (`VERITEXT_MODEL_REWRITE`, `_JUDGE`, `_CLASSIFY`). Defaults:
   rewrite `claude-opus-5-5`, verify/judge `claude-sonnet-5-5`, classify `claude-haiku-5-5`.
   Never hard-code a model ID anywhere else.
@@ -78,7 +95,9 @@ LLM access is injected via a `LLMClient` protocol so stages are testable with fa
   Load prompts through `veritext_engine.llm.prompts.load_prompt`. **No inline prompt strings.**
   Changing a prompt's behaviour = new version file, not an edit in place.
 - Use prompt caching (`cache_control`) for system prompts and style profiles.
-- Every judge/extraction call uses tool use / structured output with a Pydantic schema.
+- Structured replies use `output_config.format` (JSON schema). Do not send forced `tool_choice`,
+  `thinking: disabled`, `budget_tokens` or sampling parameters: the current models reject them.
+  Control depth with `output_config.effort`. Check `stop_reason` before reading content.
 - Record input/output/cache tokens and cost per call, aggregated per job.
 - Unit tests never hit the network: use the fake client in `tests/fakes.py`.
 
@@ -107,8 +126,9 @@ Run from `veritext-stem/` unless stated otherwise.
 | Engine dev server | `uv run uvicorn veritext_engine.main:app --reload` (in `services/engine`) |
 | Web deps | `pnpm install` |
 | Web lint / types / tests | `pnpm -r lint && pnpm -r typecheck && pnpm -r test` |
-| Web dev server | `pnpm --filter web dev` → http://localhost:3000 (expects the engine on :8000, `ENGINE_URL`) |
-| Preview build + e2e | `pnpm --filter web build:preview && pnpm --filter web e2e` |
+| Web dev server | `pnpm --filter web dev` → http://localhost:3000 (no engine needed) |
+| Build + e2e | `pnpm --filter web build && pnpm --filter web build:preview && pnpm --filter web e2e` |
+| Launch check | `VERITEXT_ADMIN_TOKEN=… pnpm --filter web launch-check https://site` |
 | Benchmark smoke | not built yet (Phase 2) |
 
 ## Phase discipline

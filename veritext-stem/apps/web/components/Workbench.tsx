@@ -3,6 +3,8 @@
 // The rewrite workbench. Plain React (no next/* imports) so the same component powers the Next.js app
 // and the single-file preview build (preview/main.tsx).
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { DISCLOSURE_STYLES, disclosure, type DisclosureStyle } from "@/lib/disclosure";
+import { countWords } from "@/lib/plans";
 import {
   DISCIPLINES,
   REGISTERS,
@@ -28,6 +30,14 @@ interface Props {
   initialText: string;
   notice?: ReactNode;
   canDownload?: boolean;
+  /** Replaces the default title block (the app page supplies its own navigation and account bar). */
+  header?: ReactNode;
+  /** Render a failed run in a custom way (e.g. an upgrade prompt). Return null for the default message. */
+  renderError?: (error: unknown) => ReactNode | null;
+  /** Shown next to the word count, e.g. how many words the plan has left. */
+  wordNote?: (words: number) => ReactNode;
+  /** Called when a paid-only control is used while `canDownload` is false. */
+  onLocked?: () => void;
 }
 
 const STATUS_LABEL: Record<Status, string> = {
@@ -43,10 +53,10 @@ const FORMATS: { value: Format | "auto"; label: string }[] = [
   { value: "latex", label: "LaTeX" },
 ];
 
-type Tab = "compare" | "output" | "locked" | "quality";
+type Tab = "compare" | "output" | "locked" | "quality" | "disclosure";
 type Filter = "all" | "flagged";
 
-export default function Workbench({ engines, initialText, notice, canDownload = false }: Props) {
+export default function Workbench({ engines, initialText, notice, canDownload = false, header, renderError, wordNote, onLocked }: Props) {
   const [text, setText] = useState(initialText);
   const [format, setFormat] = useState<Format | "auto">("auto");
   const [discipline, setDiscipline] = useState<Discipline>("physics");
@@ -55,7 +65,7 @@ export default function Workbench({ engines, initialText, notice, canDownload = 
   const [report, setReport] = useState<Report | null>(null);
   const [busy, setBusy] = useState(false);
   const [progress, setProgress] = useState<[number, number] | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<unknown>(null);
   const [tab, setTab] = useState<Tab>("compare");
   const [filter, setFilter] = useState<Filter>("all");
   const [copied, setCopied] = useState(false);
@@ -77,7 +87,7 @@ export default function Workbench({ engines, initialText, notice, canDownload = 
       setReport(r);
       setTab("compare");
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(e);
     } finally {
       setBusy(false);
     }
@@ -88,7 +98,7 @@ export default function Workbench({ engines, initialText, notice, canDownload = 
     if (name.endsWith(".tex")) setFormat("latex");
     else if (name.endsWith(".md") || name.endsWith(".markdown")) setFormat("markdown");
     else setFormat("text");
-    file.text().then(setText, () => setError("Could not read that file. Upload a .txt, .md or .tex file."));
+    file.text().then(setText, () => setError(new Error("Could not read that file. Upload a .txt, .md or .tex file.")));
   }
 
   async function copyOutput() {
@@ -109,20 +119,33 @@ export default function Workbench({ engines, initialText, notice, canDownload = 
     }
   }
 
-  function download() {
-    if (!report) return;
-    const ext = report.format === "latex" ? "tex" : report.format === "markdown" ? "md" : "txt";
-    const url = URL.createObjectURL(new Blob([report.output], { type: "text/plain" }));
+  function save(name: string, body: string, type: string) {
+    const url = URL.createObjectURL(new Blob([body], { type }));
     const a = document.createElement("a");
     a.href = url;
-    a.download = `veritext-rewrite.${ext}`;
+    a.download = name;
     a.click();
     URL.revokeObjectURL(url);
   }
 
+  function download() {
+    if (!report) return;
+    const ext = report.format === "latex" ? "tex" : report.format === "markdown" ? "md" : "txt";
+    save(`veritext-rewrite.${ext}`, report.output, "text/plain");
+  }
+
+  function downloadReport() {
+    if (!report) return;
+    save("veritext-fidelity-report.json", JSON.stringify({ generated_at: new Date().toISOString(), ...report }, null, 2), "application/json");
+  }
+
+  const words = countWords(text);
+  const customError = error != null && renderError ? renderError(error) : null;
+
   return (
     <div className="vx-shell">
-      <header className="flex flex-wrap items-end justify-between gap-4">
+      {header}
+      <header className="flex flex-wrap items-end justify-between gap-4" hidden={Boolean(header)}>
         <div className="grid gap-1" style={{ maxWidth: "62ch" }}>
           <h1 className="vx-display m-0 text-[30px] leading-tight">Veritext STEM</h1>
           <p className="m-0" style={{ color: "var(--muted)" }}>
@@ -238,6 +261,15 @@ export default function Workbench({ engines, initialText, notice, canDownload = 
           onChange={(e) => setText(e.target.value)}
           placeholder="Paste plain text, Markdown or LaTeX…"
         />
+        <div
+          className="flex flex-wrap items-center justify-between gap-2 px-4 py-2 text-[13px]"
+          style={{ borderTop: "1px solid var(--line)", color: "var(--muted)" }}
+        >
+          <span className="vx-num" data-testid="word-count">
+            {words.toLocaleString("en-US")} {words === 1 ? "word" : "words"}
+          </span>
+          {wordNote ? <span>{wordNote(words)}</span> : null}
+        </div>
       </section>
 
       {busy ? (
@@ -247,9 +279,10 @@ export default function Workbench({ engines, initialText, notice, canDownload = 
           …
         </p>
       ) : null}
-      {error ? (
+      {customError}
+      {error != null && !customError ? (
         <p className="vx-note vx-note-bad m-0" role="alert">
-          {error}
+          {error instanceof Error ? error.message : String(error)}
         </p>
       ) : null}
 
@@ -262,7 +295,9 @@ export default function Workbench({ engines, initialText, notice, canDownload = 
           setFilter={setFilter}
           copied={copied}
           onCopy={copyOutput}
-          onDownload={canDownload ? download : undefined}
+          onDownload={canDownload ? download : onLocked}
+          onDownloadReport={canDownload ? downloadReport : onLocked}
+          locked={!canDownload && Boolean(onLocked)}
           outRef={outRef}
         />
       ) : null}
@@ -284,6 +319,8 @@ function Results(props: {
   copied: boolean;
   onCopy(): void;
   onDownload?: () => void;
+  onDownloadReport?: () => void;
+  locked?: boolean;
   outRef: React.RefObject<HTMLPreElement | null>;
 }) {
   const { report, tab, setTab, filter, setFilter } = props;
@@ -357,6 +394,7 @@ function Results(props: {
               ["output", "Rewritten text"],
               ["locked", `Locked items (${report.locked.length})`],
               ["quality", `Writing quality (${report.lint_input.length} flagged)`],
+              ["disclosure", "AI-use statement"],
             ] as const
           ).map(([id, label]) => (
             <button
@@ -422,7 +460,12 @@ function Results(props: {
               </button>
               {props.onDownload ? (
                 <button type="button" className="vx-btn" onClick={props.onDownload}>
-                  Download
+                  Download file{props.locked ? " (paid)" : ""}
+                </button>
+              ) : null}
+              {props.onDownloadReport ? (
+                <button type="button" className="vx-btn" onClick={props.onDownloadReport}>
+                  Download fidelity report{props.locked ? " (paid)" : ""}
                 </button>
               ) : null}
             </div>
@@ -462,12 +505,13 @@ function Results(props: {
         ) : null}
 
         {tab === "quality" ? <Quality report={report} /> : null}
+        {tab === "disclosure" ? <Disclosure report={report} /> : null}
       </div>
     </section>
   );
 }
 
-function SentenceRow({ s }: { s: SentenceResult }) {
+export function SentenceRow({ s }: { s: SentenceResult }) {
   const changed = s.final !== s.original;
   const hard = s.issues.filter((i) => i.severity === "hard");
   const soft = s.issues.filter((i) => i.severity === "soft");
@@ -585,6 +629,56 @@ function Quality({ report }: { report: Report }) {
           <span className="vx-label">Still in the rewrite</span>
           <pre className="vx-pre">{highlight(report.output, report.lint_output)}</pre>
         </div>
+      ) : null}
+    </div>
+  );
+}
+
+function Disclosure({ report }: { report: Report }) {
+  const [style, setStyle] = useState<DisclosureStyle>("icmje");
+  const [copied, setCopied] = useState(false);
+  const text = disclosure(style, report);
+  const where = DISCLOSURE_STYLES.find((d) => d.value === style)?.where;
+  return (
+    <div className="grid gap-3 p-4">
+      <p className="m-0 text-[14px]" style={{ color: "var(--muted)", maxWidth: "70ch" }}>
+        Most journals ask authors to say how AI tools were used. This statement is filled in from this run. Check your
+        target journal&apos;s current policy before submitting.
+      </p>
+      <div className="flex flex-wrap items-end gap-2">
+        <label className="grid gap-1">
+          <span className="vx-label">Policy wording</span>
+          <select id="vx-disclosure-style" className="vx-field" value={style} onChange={(e) => setStyle(e.target.value as DisclosureStyle)}>
+            {DISCLOSURE_STYLES.map((d) => (
+              <option key={d.value} value={d.value}>
+                {d.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button
+          type="button"
+          className="vx-btn"
+          onClick={() =>
+            navigator.clipboard.writeText(text).then(
+              () => {
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1600);
+              },
+              () => undefined,
+            )
+          }
+        >
+          {copied ? "Copied" : "Copy statement"}
+        </button>
+      </div>
+      <pre className="vx-pre vx-panel p-3" data-testid="disclosure">
+        {text}
+      </pre>
+      {where ? (
+        <p className="m-0 text-[13px]" style={{ color: "var(--muted)" }}>
+          Where it goes: {where}.
+        </p>
       ) : null}
     </div>
   );

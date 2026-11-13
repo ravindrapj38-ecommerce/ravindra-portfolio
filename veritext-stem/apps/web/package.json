@@ -11,9 +11,11 @@
     "test": "vitest run",
     "sync-shared": "node scripts/sync-shared.mjs",
     "build:preview": "node scripts/build-preview.mjs",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "launch-check": "node scripts/launch-check.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
     "next": "15.5.28",
     "react": "19.1.10",
     "react-dom": "19.1.10"
